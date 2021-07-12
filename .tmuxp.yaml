@@ -1,0 +1,14 @@
+session_name: config
+windows:
+- window_name: nvim
+  focus: true
+  layout: tiled
+  panes:
+  - nvim .
+  start_directory: /Users/lionc/.config
+- window_name: zsh
+  start_directory: /Users/lionc/.config
+  layout: tiled
+  panes:
+  - git status
+  
