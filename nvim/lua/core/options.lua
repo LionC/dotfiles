@@ -1,19 +1,7 @@
-local opt = vim.api.nvim_set_option
 local homeFolder = vim.env.HOME
 
-vim.cmd [[
-    if exists('$TMUX')
-        " Colors in tmux
-        let &t_8f = "<Esc>[38;2;%lu;%lu;%lum"
-        let &t_8b = "<Esc>[48;2;%lu;%lu;%lum"
-    endif
-
-    set termguicolors
-    set background=dark
-]]
-
-local settings = {
-    -- termguicolors = true,
+local options = {
+    termguicolors = true,
     tabstop = 4,
     shiftwidth = 4,
     autoread = true,
@@ -40,9 +28,10 @@ local settings = {
     completeopt = 'menuone,noselect',
 }
 
-for name, value in pairs(settings) do
+for name, value in pairs(options) do
     vim.api.nvim_set_option(name, value)
 end
 
 vim.opt.shortmess:append({ c = true })
+vim.cmd('filetype on')
 

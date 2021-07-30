@@ -1,18 +1,20 @@
 -- List of all plugins to load, set `config` to `true` to autoload the function provided in plugins/config/<pluginname>
 -- according to `pluginIdentifierToFilename` below
 local plugins = {
+    -- packer itself
+    { name = 'wbthomason/packer.nvim', config = false },
+
     -- dependencies
     { name = 'nvim-lua/popup.nvim', config = false },
     { name = 'kyazdani42/nvim-web-devicons', config = false },
     { name = 'nvim-lua/plenary.nvim', config = false },
 
-    -- telescope
+    -- fuzzy finding
     { name = 'nvim-telescope/telescope.nvim', config = false },
 
     -- visuals
-    { name = 'tanvirtin/monokai.nvim', config = false },
-    { name = 'sunjon/shade.nvim', config = true },
     { name = 'famiu/feline.nvim', config = true },
+    { name = 'tanvirtin/monokai.nvim', config = true },
 
     -- parsing
     { name = 'neovim/nvim-lspconfig', config = false },
@@ -22,18 +24,15 @@ local plugins = {
     { name = 'RRethy/nvim-treesitter-textsubjects', config = false },
     { name = 'hrsh7th/nvim-compe', config = true },
 
+    -- file tree
     { name = 'kyazdani42/nvim-tree.lua', config = true },
 
     -- snippets
     { name = 'hrsh7th/vim-vsnip', config = false },
     { name = 'hrsh7th/vim-vsnip-integ', config = false },
 
-    { name = 'b3nj5m1n/kommentary', config = true },
     { name = 'gennaro-tedesco/nvim-jqx', config = false },
     { name = 'lewis6991/gitsigns.nvim', config = true },
-
-    -- keybinds
-    { name = "folke/which-key.nvim", config = true },
 }
 
 -- Generate short name for plugin to use as filename
