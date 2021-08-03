@@ -14,7 +14,7 @@ local plugins = {
 
     -- visuals
     { name = 'famiu/feline.nvim', config = true },
-    { name = 'tanvirtin/monokai.nvim', config = true },
+    { name = 'LionC/monokai.nvim', config = true },
 
     -- parsing
     { name = 'neovim/nvim-lspconfig', config = false },
