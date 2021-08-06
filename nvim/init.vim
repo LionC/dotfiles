@@ -2,15 +2,14 @@ lua << EOF
 require('core.options')
 require('plugins')
 require('lsp')
--- require('keybinds')
+require('keybinds')
 EOF
 
-" Keymappings
+" /-------------
+" | Keymappings |
+" --------------/
 
 nnoremap <C-n> :NvimTreeToggle<CR>
-
-nnoremap ; :
-nnoremap gb <C-o>
 
 " Finding things
 nnoremap <C-p> <cmd>Telescope find_files<cr>
