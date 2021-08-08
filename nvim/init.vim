@@ -9,26 +9,6 @@ EOF
 " | Keymappings |
 " --------------/
 
-nnoremap <C-n> :NvimTreeToggle<CR>
-
-" Finding things
-nnoremap <C-p> <cmd>Telescope find_files<cr>
-nnoremap <C-f> <cmd>Telescope live_grep<cr>
-
-noremap <C-J> <C-W>j
-nnoremap <C-K> <C-W>k
-nnoremap <C-L> <C-W>l
-nnoremap <C-H> <C-W>h
-
-vnoremap <leader>c "+y
-vnoremap <leader>y "+y
-nnoremap <leader>yy "+yy
-nnoremap <leader>p "+p
-vnoremap <leader>p "+p
-vnoremap <leader>x "+d
-
-nnoremap <silent> <Esc> :nohl<CR>
-
 " Completion
 inoremap <silent><expr> <C-Space> compe#complete()
 inoremap <silent><expr> <CR>      compe#confirm('<CR>')

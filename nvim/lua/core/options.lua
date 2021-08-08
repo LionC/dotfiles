@@ -26,6 +26,9 @@ local options = {
     timeoutlen = 600,
     signcolumn = 'yes',
     completeopt = 'menuone,noselect',
+    wrap = false,
+    lazyredraw = true,
+    inccommand = "nosplit",
 }
 
 for name, value in pairs(options) do
@@ -35,3 +38,7 @@ end
 vim.opt.shortmess:append({ c = true })
 vim.cmd('filetype on')
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_zip = 1
