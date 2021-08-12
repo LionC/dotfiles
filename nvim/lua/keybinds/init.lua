@@ -49,27 +49,48 @@ local function applyKeybinds (config, prefix)
 end
 
 applyKeybinds {
+    -- Pragmatic command mode
     { ";",      ":", options = { silent = false } },
     { ":",      ";" },
+
+    -- Buffer navigation
     { "<BS>",   "<C-^>" },
     { "gb",     "<C-o>" },
-    { "<Esc>",     ":nohl<CR>" },
+
+    -- Searching
+    { "<Esc>",  ":nohl<CR>" },
+    { "/",      "ms/" },
+    { "?",      "ms?" },
+
+    { "H",      "^" },
+    { "L",      "$" },
+    { "0",      "^" },
+    { "^",      "0" },
+
+    -- Control mappings
     { "<C-", {
+        -- Window navgiation
         { "J>", "<C-W>j" },
         { "K>", "<C-W>k" },
         { "L>", "<C-W>l" },
         { "H>", "<C-W>h" },
+
+        -- Fast access Telescope
         { "p>", ":Telescope find_files<CR>" },
         { "f>", ":Telescope live_grep<CR>" },
+
+        -- File Tree
         { "n>", ":NvimTreeToggle<CR>" },
-        { "s>", ":w<CR>", options = { silent = false } },
     }},
+
     { "<leader>", {
+        -- LSP
         { "l", {
             { "c", ":lua vim.lsp.buf.code_action()<CR>" },
             { "r", ":lua vim.lsp.buf.rename()<CR>" },
             { "f", ":lua vim.lsp.buf.formatting_sync()<CR>" },
             { "s", ":lua vim.lsp.buf.signature_help()<CR>" },
+            { "h", ":lua vim.lsp.buf.hover()<CR>" },
         }}
     }},
 }
