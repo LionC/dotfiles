@@ -17,7 +17,4 @@ inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
  
 colorscheme monokai_pro
-highlight clear SignColumn
-highlight LineNr guifg=#A49D9D guibg=NONE
-highlight CursorLineNr guibg=NONE
 

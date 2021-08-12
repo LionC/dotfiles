@@ -6,46 +6,81 @@ local defaultConfig = {
         noremap = true,
         silent = true,
     },
+    prefix = "",
 }
 
-local function merge(leftTable, rightTable)
+local function copy(table)
     local ret = {}
 
-    for key, value in pairs(leftTable) do
-        ret[key] = value
-    end
-
-    for key, value in pairs(rightTable) do
+    for key, value in pairs(table) do
         ret[key] = value
     end
 
     return ret
 end
 
-local function applyKeybinds (config, prefix)
+local function mergeTables(left, right)
+    local ret = copy(left)
+
+    for key, value in pairs(right) do
+        ret[key] = value
+    end
+
+    return ret
+end
+
+local function mergeOptions(left, right)
+    local ret = copy(left)
+
+    if (right == nil) then
+        return ret
+    end
+
+    if (right.mode ~= nil) then
+        ret.mode = right.mode
+    end
+
+    if (right.prefix ~= nil) then
+        ret.prefix = ret.prefix .. right.prefix
+    end
+
+    if (right.options ~= nil) then
+        ret.options = mergeTables(ret.options, right.options)
+    end
+
+    return ret
+end
+
+local function applyKeybinds (config, presets)
+    local presets = presets or defaultConfig
+    local mergedPresets = mergeOptions(presets, config)
+
     local first = config[1]
 
     if(type(first) == "table") then
         for _, it in ipairs(config) do
-            applyKeybinds(it, prefix)
+            applyKeybinds(it, mergedPresets)
         end
 
         return
     end
 
     local second = config[2]
-    local concatenatedPrefix = (prefix or "") .. first
+
+    mergedPresets.prefix = mergedPresets.prefix .. first
 
     if(type(second) == "table") then
-        applyKeybinds(second, concatenatedPrefix)
+        applyKeybinds(second, mergedPresets)
 
         return
     end
 
-    local mode = config.mode or defaultConfig.mode
-    local options = config.options and merge(defaultConfig.options, config.options) or defaultConfig.options
-
-    vim.api.nvim_set_keymap(mode, concatenatedPrefix, second, options)
+    vim.api.nvim_set_keymap(
+        mergedPresets.mode,
+        mergedPresets.prefix,
+        second,
+        mergedPresets.options
+    )
 end
 
 applyKeybinds {
@@ -86,22 +121,20 @@ applyKeybinds {
     { "<leader>", {
         -- LSP
         { "l", {
-            { "c", ":lua vim.lsp.buf.code_action()<CR>" },
-            { "r", ":lua vim.lsp.buf.rename()<CR>" },
-            { "f", ":lua vim.lsp.buf.formatting_sync()<CR>" },
-            { "s", ":lua vim.lsp.buf.signature_help()<CR>" },
-            { "h", ":lua vim.lsp.buf.hover()<CR>" },
+            { "c", "<Cmd>lua vim.lsp.buf.code_action()<CR>" },
+            { "r", "<Cmd>lua vim.lsp.buf.rename()<CR>" },
+            { "f", "<Cmd>lua vim.lsp.buf.formatting_sync()<CR>" },
+            { "s", "<Cmd>lua vim.lsp.buf.signature_help()<CR>" },
+            { "h", "<Cmd>lua vim.lsp.buf.hover()<CR>" },
         }}
     }},
+
+    { mode = "i", options = { expr = true },
+        { "<CR>",       "compe#confirm('<CR'>)" },
+        { "<C-Space>",  "compe#complete()" },
+    },
 }
 
--- " Finding things
--- nnoremap <C-p> <cmd>Telescope find_files<cr>
--- nnoremap <C-f> <cmd>Telescope live_grep<cr>
--- noremap <C-J> <C-W>j
--- nnoremap <C-K> <C-W>k
--- nnoremap <C-L> <C-W>l
--- nnoremap <C-H> <C-W>h
 -- " Completion
 -- inoremap <silent><expr> <C-Space> compe#complete()
 -- inoremap <silent><expr> <CR>      compe#confirm('<CR>')
