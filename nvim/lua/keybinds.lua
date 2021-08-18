@@ -2,10 +2,14 @@ local nest = require('nest')
 
 vim.g.mapleader = ' '
 
-nest.applyKeybinds {
+nest.applyKeymaps {
     -- Pragmatic command mode
     { ";",      ":", options = { silent = false } },
     { ":",      ";" },
+    { "H",      "^" },
+    { "L",      "$" },
+    { "0",      "^" },
+    { "^",      "0" },
 
     -- Buffer navigation
     { "<BS>",   "<C-^>" },
@@ -15,11 +19,6 @@ nest.applyKeybinds {
     { "<Esc>",  "<Cmd>nohl<CR>" },
     { "/",      "ms/" },
     { "?",      "ms?" },
-
-    { "H",      "^" },
-    { "L",      "$" },
-    { "0",      "^" },
-    { "^",      "0" },
 
     -- Control mappings
     { "<C-", {
@@ -53,3 +52,7 @@ nest.applyKeybinds {
         { "<C-Space>",  "compe#complete()" },
     },
 }
+
+
+
+
