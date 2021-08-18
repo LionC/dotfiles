@@ -33,6 +33,9 @@ local plugins = {
 
     { name = 'gennaro-tedesco/nvim-jqx', config = false },
     { name = 'lewis6991/gitsigns.nvim', config = true },
+
+    -- config utils
+    { name = 'LionC/nest.nvim' },
 }
 
 -- Generate short name for plugin to use as filename
