@@ -35,7 +35,7 @@ local plugins = {
     { name = 'lewis6991/gitsigns.nvim', config = true },
 
     -- config utils
-    { name = 'LionC/nest.nvim' },
+    { name = 'LionC/nest.nvim', branch = 'release-v1.1' },
 }
 
 -- Generate short name for plugin to use as filename
