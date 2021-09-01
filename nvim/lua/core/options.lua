@@ -1,38 +1,38 @@
 local homeFolder = vim.env.HOME
 
 local options = {
-    termguicolors = true,
-    tabstop = 4,
-    shiftwidth = 4,
     autoread = true,
-    mouse = 'a',
-    showmode = false,
-    undofile = true,
-    undodir = homeFolder .. '/.vim/undofiles5',
+    autoread = true,
+    backup = false,
+    cmdheight = 1,
+    completeopt = { 'menuone', 'noselect' },
+    cursorline = true,
     expandtab = true,
+    hidden = true,
+    ignorecase = true,
+    inccommand = 'nosplit',
+    lazyredraw = true,
+    mouse = 'a',
     number = true,
     relativenumber = true,
     scrolloff = 15,
-    cursorline = true,
-    ignorecase = true,
-    smartcase = true,
-    autoread = true,
-    ttimeoutlen = 80,
-    hidden = true,
-    backup = false,
-    writebackup = false,
-    cmdheight = 1,
-    updatetime = 300,
-    timeoutlen = 600,
+    shiftwidth = 4,
+    showmode = false,
     signcolumn = 'yes',
-    completeopt = 'menuone,noselect',
+    smartcase = true,
+    tabstop = 4,
+    termguicolors = true,
+    timeoutlen = 600,
+    ttimeoutlen = 80,
+    undodir = homeFolder .. '/.vim/undofiles5',
+    undofile = true,
+    updatetime = 300,
     wrap = false,
-    lazyredraw = true,
-    inccommand = "nosplit",
+    writebackup = false,
 }
 
 for name, value in pairs(options) do
-    vim.api.nvim_set_option(name, value)
+    vim.opt[name] = value
 end
 
 vim.opt.shortmess:append({ c = true })
