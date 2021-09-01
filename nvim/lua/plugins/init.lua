@@ -21,8 +21,11 @@ local plugins = {
     { name = 'onsails/lspkind-nvim', config = true },
     { name = 'nvim-treesitter/nvim-treesitter', config = true },
     { name = 'nvim-treesitter/nvim-treesitter-textobjects', config = false },
+
+    -- editing
     { name = 'RRethy/nvim-treesitter-textsubjects', config = false },
     { name = 'hrsh7th/nvim-compe', config = true },
+    { name = 'blackCauldron7/surround.nvim', config = true },
 
     -- file tree
     { name = 'kyazdani42/nvim-tree.lua', config = true },
