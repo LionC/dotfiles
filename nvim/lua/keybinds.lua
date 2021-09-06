@@ -1,5 +1,7 @@
 local nest = require('nest')
 
+local lsp = vim.lsp.buf
+
 vim.g.mapleader = ' '
 
 nest.applyKeymaps {
@@ -42,12 +44,12 @@ nest.applyKeymaps {
     { '<leader>', {
         -- LSP
         { 'l', {
-            { 'c', vim.lsp.buf.code_action },
             { 'd', vim.lsp.diagnostic.show_line_diagnostics },
-            { 'r', vim.lsp.buf.rename },
-            { 'f', vim.lsp.buf.formatting_sync },
-            { 's', vim.lsp.buf.signature_help },
-            { 'h', vim.lsp.buf.hover },
+            { 'c', lsp.code_action },
+            { 'r', lsp.rename },
+            { 'f', lsp.formatting_sync },
+            { 's', lsp.signature_help },
+            { 'h', lsp.hover },
         }}
     }},
 
@@ -56,7 +58,4 @@ nest.applyKeymaps {
         { '<C-Space>',  'compe#complete()' },
     },
 }
-
-
-
 
