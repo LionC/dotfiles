@@ -22,8 +22,18 @@ local on_attach = function(_, bufnr)
   }
 end
 
--- or "tsserver"
-nvim_lsp.denols.setup { on_attach = on_attach }
+-- Rust
+nvim_lsp.rust_analyzer.setup {}
+
+-- Typescript / Deno
+nvim_lsp.denols.setup { -- or "tsserver"
+    init_options = {
+      enable = true,
+      lint = true,
+      -- unstable = true,
+    },
+    on_attach = on_attach
+}
 
 local sumneko_root_path = '/usr/local/opt/lua-language-server'
 local sumneko_binary = sumneko_root_path..'/bin/macOS/lua-language-server'
