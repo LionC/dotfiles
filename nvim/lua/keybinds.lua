@@ -32,11 +32,9 @@ nest.applyKeymaps {
         { 'K>', '<C-W>k' },
         { 'L>', '<C-W>l' },
         { 'H>', '<C-W>h' },
-
         -- Fast access Telescope
         { 'p>', '<Cmd>Telescope find_files<CR>' },
         { 'f>', '<Cmd>Telescope live_grep<CR>' },
-
         -- File Tree
         { 'n>', '<Cmd>NvimTreeToggle<CR>' },
     }},

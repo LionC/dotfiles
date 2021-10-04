@@ -1,30 +1,127 @@
 local nvim_lsp = require 'lspconfig'
+local lspPath = require 'lspconfig.util'.path
 local nest = require 'nest'
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
+local border = {
+      {" ", "FloatBorder"},
+      {"▔", "FloatBorder"},
+      {" ", "FloatBorder"},
+      {"▕", "FloatBorder"},
+      {" ", "FloatBorder"},
+      {"▁", "FloatBorder"},
+      {" ", "FloatBorder"},
+      {"▏", "FloatBorder"},
+}
+
+vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
+vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
+
+
 local on_attach = function(_, bufnr)
-  --Enable completion triggered by <c-x><c-o>
+  -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Add borderds to floating LSP windows
+  vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
+  vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border})
+
+  local lsp = vim.lsp.buf
 
   nest.applyKeymaps {
       buffer = true,
 
       { 'g', {
-          { 'd', '<Cmd>lua vim.lsp.buf.definition()<CR>' },
-          { 'y', '<cmd>lua vim.lsp.buf.type_definition()<CR>' },
-          { 'i', '<cmd>lua vim.lsp.buf.implementation()<CR>' },
-          { 'r', '<cmd>lua vim.lsp.buf.references()<CR>' },
-          { 'D', '<Cmd>lua vim.lsp.buf.declaration()<CR>' },
+          { 'd', lsp.definition },
+          { 'y', lsp.type_definition },
+          { 'i', lsp.implementation },
+          { 'r', lsp.references },
+          { 'D', lsp.declaration },
       }},
 
-      { 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>' },
+      { 'K', lsp.hover },
   }
 end
 
--- or "tsserver"
-nvim_lsp.denols.setup { on_attach = on_attach }
+local function hasPackageJson(path)
+    local checkPath = lspPath.join(path, 'package.json')
+    local exists = lspPath.exists(checkPath)
+    return exists
+end
 
+local cwd = vim.fn.getcwd()
+
+if hasPackageJson(cwd) or lspPath.traverse_parents(cwd, hasPackageJson) then
+    vim.cmd [[
+        function! ParseURI(uri)
+            return substitute(a:uri, '%\([a-fA-F0-9][a-fA-F0-9]\)', '\=nr2char("0x" . submatch(1))', "g")
+        endfunction
+
+        function! RzipOverride()
+            autocmd! zip BufReadCmd   zipfile:*/*
+            exe "au! zip BufReadCmd ".g:zipPlugin_ext
+            autocmd zip BufReadCmd   zipfile:*/*
+                        \ if ParseURI(expand("<amatch>")) !=# expand("<amatch>") |
+                        \     sil! exe "bwipeout " . fnameescape(ParseURI(expand("<amatch>"))) |
+                        \     exe "keepalt file " . fnameescape(ParseURI(expand("<amatch>"))) |
+                        \     sil! exe "bwipeout " . fnameescape(expand("<amatch>")) |
+                        \ endif
+            autocmd zip BufReadCmd   zipfile:*/* call rzip#Read(ParseURI(expand("<amatch>")), 1)
+            exe "au zip BufReadCmd ".g:zipPlugin_ext." call rzip#Browse(ParseURI(expand('<amatch>')))"
+        endfunction
+
+        autocmd VimEnter * call RzipOverride()
+    ]]
+
+    -- Typescript
+    nvim_lsp.tsserver.setup {
+        on_attach = function(client)
+            client.resolved_capabilities.document_formatting = false
+            on_attach()
+        end,
+    }
+
+    local eslint = {
+      lintCommand = "eslint -f unix --stdin --stdin-filename ${INPUT}",
+      lintStdin = true,
+      lintFormats = {"%f:%l:%c: %m"},
+      lintIgnoreExitCode = true,
+      formatCommand = "eslint --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+      formatStdin = true
+    }
+
+    local prettier = {
+      formatCommand = "prettier"
+    }
+
+    nvim_lsp.efm.setup {
+        init_options = {
+            documentFormatting = true
+        },
+        settings = {
+            rootMarkers = { '.git/' },
+            languages = {
+                javascript = { prettier, eslint },
+                javascriptreact = { prettier, eslint },
+                typescript = { prettier, eslint },
+                typescriptreact = { prettier, eslint },
+            }
+        }
+    }
+else
+    -- Deno
+    nvim_lsp.denols.setup {
+        on_attach = on_attach,
+        init_options = {
+            enable = true,
+            lint = true,
+        },
+    }
+end
+
+-- Rust
+nvim_lsp.rust_analyzer.setup { on_attach = on_attach }
+
+-- Lua with Nvim
 local sumneko_root_path = '/usr/local/opt/lua-language-server'
 local sumneko_binary = sumneko_root_path..'/bin/macOS/lua-language-server'
 local runtime_path = vim.split(package.path, ';')

@@ -39,6 +39,9 @@ local plugins = {
 
     -- config utils
     { name = 'LionC/nest.nvim', branch = 'release-v1.1' },
+
+    -- TsServer workaround
+    { name = 'lbrayner/vim-rzip', config = false },
 }
 
 -- Generate short name for plugin to use as filename

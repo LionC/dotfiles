@@ -3,8 +3,6 @@ return function ()
     vim.g.nvim_tree_gitignore = 1
     vim.g.nvim_tree_quit_on_open = 1
     vim.g.nvim_tree_add_trailing = 1
-    vim.g.nvim_tree_lsp_diagnostics = 1
-    vim.g.nvim_tree_update_cwd = 1
     vim.g.nvim_tree_show_icons = {
         git = 1,
         folders = 1,
@@ -39,6 +37,20 @@ return function ()
             warning = "",
             error = "",
         }
+    }
+
+    require 'nvim-tree'.setup {
+        -- closes neovim automatically when the tree is the last **WINDOW** in the view
+        auto_close          = true,
+        -- hijack the cursor in the tree to put it at the start of the filename
+        hijack_cursor       = true,
+        -- show lsp diagnostics in the signcolumn
+        lsp_diagnostics     = true,
+        -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
+        update_focused_file = {
+          -- enables the feature
+          enable      = true,
+        },
     }
 end
 
