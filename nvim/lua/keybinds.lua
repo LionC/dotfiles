@@ -1,4 +1,6 @@
-local nest = require('nest')
+local nest = require 'nest'
+local cmp = require 'cmp'
+local completion = cmp.mapping
 
 local lsp = vim.lsp.buf
 
@@ -51,9 +53,26 @@ nest.applyKeymaps {
         }}
     }},
 
-    { mode = 'i', options = { expr = true },
-        { '<CR>',       'compe#confirm("<CR>")' },
-        { '<C-Space>',  'compe#complete()' },
-    },
+    -- Completion
+    { mode = 'i', {
+        { '<C-Space>',  completion.complete() },
+        { '<C-e>',      completion.close() },
+        { '<C-d>',      completion.scroll_docs(-4) },
+        { '<C-f>',      completion.scroll_docs(4) },
+        { '<C-p>',      completion.select_prev_item() },
+        { '<C-n>',      completion.select_next_item() },
+        { options = { expr = true }, {
+            { '<CR>', function()
+                return cmp.confirm({ select = true })
+                    and ''
+                    or '<CR>'
+            end },
+            { '<Tab', function()
+                return vim.fn.pumvisible() == 1
+                    and completion.select_next_item()
+                    or '<Tab>'
+            end },
+        }},
+    }},
 }
 

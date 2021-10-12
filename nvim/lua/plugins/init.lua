@@ -24,7 +24,13 @@ local plugins = {
 
     -- editing
     { name = 'RRethy/nvim-treesitter-textsubjects', config = false },
-    { name = 'hrsh7th/nvim-compe', config = true },
+    { name = 'hrsh7th/cmp-nvim-lsp', config = false },
+    { name = 'hrsh7th/cmp-buffer', config = false },
+    { name = 'hrsh7th/cmp-calc', config = false },
+    { name = 'hrsh7th/cmp-path', config = false },
+    { name = 'hrsh7th/cmp-emoji', config = false },
+    { name = 'hrsh7th/nvim-cmp', config = true },
+
     { name = 'blackCauldron7/surround.nvim', config = true },
 
     -- file tree
