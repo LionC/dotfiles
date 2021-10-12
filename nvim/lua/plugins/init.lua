@@ -18,7 +18,7 @@ local plugins = {
 
     -- parsing
     { name = 'neovim/nvim-lspconfig', config = false },
-    { name = 'onsails/lspkind-nvim', config = true },
+    { name = 'jose-elias-alvarez/null-ls.nvim', config = false },
     { name = 'nvim-treesitter/nvim-treesitter', config = true },
     { name = 'nvim-treesitter/nvim-treesitter-textobjects', config = false },
 

@@ -51,6 +51,7 @@ end
 local cwd = vim.fn.getcwd()
 
 if hasPackageJson(cwd) or lspPath.traverse_parents(cwd, hasPackageJson) then
+    -- Yarn pnp workaround
     vim.cmd [[
         function! ParseURI(uri)
             return substitute(a:uri, '%\([a-fA-F0-9][a-fA-F0-9]\)', '\=nr2char("0x" . submatch(1))', "g")
@@ -80,32 +81,19 @@ if hasPackageJson(cwd) or lspPath.traverse_parents(cwd, hasPackageJson) then
         end,
     }
 
-    local eslint = {
-      lintCommand = "eslint -f unix --stdin --stdin-filename ${INPUT}",
-      lintStdin = true,
-      lintFormats = {"%f:%l:%c: %m"},
-      lintIgnoreExitCode = true,
-      formatCommand = "eslint --fix-to-stdout --stdin --stdin-filename=${INPUT}",
-      formatStdin = true
-    }
+    local null = require 'null-ls'
+    local builtins = null.builtins
 
-    local prettier = {
-      formatCommand = "prettier"
-    }
-
-    nvim_lsp.efm.setup {
-        init_options = {
-            documentFormatting = true
-        },
-        settings = {
-            rootMarkers = { '.git/' },
-            languages = {
-                javascript = { prettier, eslint },
-                javascriptreact = { prettier, eslint },
-                typescript = { prettier, eslint },
-                typescriptreact = { prettier, eslint },
-            }
+    null.config {
+        sources = {
+            builtins.formatting.prettier,
+            builtins.diagnostics.eslint,
         }
+    }
+
+    -- Linting & Formatting
+    nvim_lsp['null-ls'].setup{
+        on_attach = on_attach,
     }
 else
     -- Deno
