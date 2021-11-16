@@ -1,0 +1,16 @@
+session_name: 'cop-frontend'
+start_directory: '$HOME/projects/copernicus/frontend'
+
+windows:
+- layout: tiled
+  focus: 'true'
+  window_name: nvim
+  panes:
+  - nvim
+- layout: tiled
+  window_name: zsh
+  panes:
+  - focus: 'true'
+    shell_command: git status
+  - yarn storybook
+  - yarn dev

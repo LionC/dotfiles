@@ -1,0 +1,13 @@
+session_name: 'deno-std'
+start_directory: '$HOME/projects/opensource/deno/std'
+
+windows:
+- layout: tiled
+  focus: 'true'
+  window_name: nvim
+  panes:
+  - nvim
+- layout: tiled
+  window_name: zsh
+  panes:
+  - git status

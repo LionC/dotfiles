@@ -1,0 +1,9 @@
+session_name: 'home'
+start_directory: '$HOME'
+
+windows:
+- layout: tiled
+  focus: 'true'
+  window_name: zsh
+  panes:
+  - blank

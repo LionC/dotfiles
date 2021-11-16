@@ -1,0 +1,9 @@
+session_name: 'config'
+start_directory: '$HOME/.config'
+
+windows:
+- layout: tiled
+  focus: 'true'
+  window_name: zsh
+  panes:
+  - blank
