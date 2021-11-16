@@ -109,6 +109,9 @@ end
 -- Rust
 nvim_lsp.rust_analyzer.setup { on_attach = on_attach }
 
+-- GraphQL
+nvim_lsp.graphql.setup { on_attach = on_attach }
+
 -- Lua with Nvim
 local sumneko_root_path = '/usr/local/opt/lua-language-server'
 local sumneko_binary = sumneko_root_path..'/bin/macOS/lua-language-server'
