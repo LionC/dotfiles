@@ -1,5 +1,4 @@
 return function ()
-    vim.g.nvim_tree_ignore = { '.git', }
     vim.g.nvim_tree_gitignore = 1
     vim.g.nvim_tree_quit_on_open = 1
     vim.g.nvim_tree_add_trailing = 1
@@ -40,6 +39,7 @@ return function ()
     }
 
     require 'nvim-tree'.setup {
+        ignore = { '.git', },
         -- closes neovim automatically when the tree is the last **WINDOW** in the view
         auto_close = true,
         -- hijack the cursor in the tree to put it at the start of the filename
