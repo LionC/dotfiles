@@ -17,7 +17,7 @@ vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
 vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
 
 
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -25,7 +25,21 @@ local on_attach = function(_, bufnr)
   vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
   vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border})
 
+  vim.cmd 'command! LspDef lua vim.lsp.buf.definition()'
+  vim.cmd 'command! LspFormatting lua vim.lsp.buf.formatting()'
+  vim.cmd 'command! LspCodeAction lua vim.lsp.buf.code_action()'
+  vim.cmd 'command! LspHover lua vim.lsp.buf.hover()'
+  vim.cmd 'command! LspRename lua vim.lsp.buf.rename()'
+  vim.cmd 'command! LspRefs lua vim.lsp.buf.references()'
+  vim.cmd 'command! LspTypeDef lua vim.lsp.buf.type_definition()'
+  vim.cmd 'command! LspImplementation lua vim.lsp.buf.implementation()'
+  vim.cmd 'command! LspDiagPrev lua vim.diagnostic.goto_prev()'
+  vim.cmd 'command! LspDiagNext lua vim.diagnostic.goto_next()'
+  vim.cmd 'command! LspDiagLine lua vim.diagnostic.open_float()'
+  vim.cmd 'command! LspSignatureHelp lua vim.lsp.buf.signature_help()'
+
   local lsp = vim.lsp.buf
+  local diag = vim.diagnostic
 
   nest.applyKeymaps {
       buffer = true,
@@ -39,7 +53,13 @@ local on_attach = function(_, bufnr)
       }},
 
       { 'K', lsp.hover },
+      { ']d', diag.goto_next },
+      { '[d', diag.goto_prev },
   }
+
+  if client.resolved_capabilities.document_formatting then
+    vim.cmd 'autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()'
+  end
 end
 
 local function hasPackageJson(path)
@@ -75,9 +95,25 @@ if hasPackageJson(cwd) or lspPath.traverse_parents(cwd, hasPackageJson) then
 
     -- Typescript
     nvim_lsp.tsserver.setup {
-        on_attach = function(client)
+        on_attach = function(client, bufnr)
             client.resolved_capabilities.document_formatting = false
-            on_attach()
+            client.resolved_capabilities.document_range_formatting = false
+
+            local ts_utils = require 'nvim-lsp-ts-utils'
+            ts_utils.setup {}
+            ts_utils.setup_client(client)
+
+            nest.applyKeymaps {
+                buffer = true,
+
+                { '<leader>t', {
+                    { 'o', '<cmd>TSLspOrganize<CR>' },
+                    { 'r', '<cmd>TSLspRenameFile<CR>' },
+                    { 'i', '<cmd>TSLspImportAll<CR>' },
+                }},
+            }
+
+            on_attach(client, bufnr)
         end,
     }
 

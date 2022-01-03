@@ -21,6 +21,7 @@ local plugins = {
     { name = 'jose-elias-alvarez/null-ls.nvim', config = false },
     { name = 'nvim-treesitter/nvim-treesitter', config = true },
     { name = 'nvim-treesitter/nvim-treesitter-textobjects', config = false },
+    { name = 'jose-elias-alvarez/nvim-lsp-ts-utils', config = false },
 
     -- editing
     { name = 'RRethy/nvim-treesitter-textsubjects', config = false },
