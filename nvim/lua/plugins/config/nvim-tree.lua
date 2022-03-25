@@ -1,5 +1,4 @@
 return function ()
-    vim.g.nvim_tree_gitignore = 1
     vim.g.nvim_tree_quit_on_open = 1
     vim.g.nvim_tree_add_trailing = 1
     vim.g.nvim_tree_show_icons = {
@@ -52,6 +51,10 @@ return function ()
         update_focused_file = {
           -- enables the feature
           enable = true,
+        },
+
+        git = {
+            ignore = true,
         },
     }
 end

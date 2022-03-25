@@ -25,18 +25,20 @@ local on_attach = function(client, bufnr)
   vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
   vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border})
 
-  vim.cmd 'command! LspDef lua vim.lsp.buf.definition()'
-  vim.cmd 'command! LspFormatting lua vim.lsp.buf.formatting()'
-  vim.cmd 'command! LspCodeAction lua vim.lsp.buf.code_action()'
-  vim.cmd 'command! LspHover lua vim.lsp.buf.hover()'
-  vim.cmd 'command! LspRename lua vim.lsp.buf.rename()'
-  vim.cmd 'command! LspRefs lua vim.lsp.buf.references()'
-  vim.cmd 'command! LspTypeDef lua vim.lsp.buf.type_definition()'
-  vim.cmd 'command! LspImplementation lua vim.lsp.buf.implementation()'
-  vim.cmd 'command! LspDiagPrev lua vim.diagnostic.goto_prev()'
-  vim.cmd 'command! LspDiagNext lua vim.diagnostic.goto_next()'
-  vim.cmd 'command! LspDiagLine lua vim.diagnostic.open_float()'
-  vim.cmd 'command! LspSignatureHelp lua vim.lsp.buf.signature_help()'
+  vim.cmd [[
+      command! LspDef               lua vim.lsp.buf.definition()
+      command! LspFormatting        lua vim.lsp.buf.formatting()
+      command! LspCodeAction        lua vim.lsp.buf.code_action()
+      command! LspHover             lua vim.lsp.buf.hover()
+      command! LspRename            lua vim.lsp.buf.rename()
+      command! LspRefs              lua vim.lsp.buf.references()
+      command! LspTypeDef           lua vim.lsp.buf.type_definition()
+      command! LspImplementation    lua vim.lsp.buf.implementation()
+      command! LspDiagPrev          lua vim.diagnostic.goto_prev()
+      command! LspDiagNext          lua vim.diagnostic.goto_next()
+      command! LspDiagLine          lua vim.diagnostic.open_float()
+      command! LspSignatureHelp     lua vim.lsp.buf.signature_help()
+  ]]
 
   local lsp = vim.lsp.buf
   local diag = vim.diagnostic
@@ -58,13 +60,16 @@ local on_attach = function(client, bufnr)
   }
 
   if client.resolved_capabilities.document_formatting then
-    vim.cmd 'autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()'
+    vim.cmd [[
+        autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+    ]]
   end
 end
 
 local function hasPackageJson(path)
     local checkPath = lspPath.join(path, 'package.json')
     local exists = lspPath.exists(checkPath)
+
     return exists
 end
 
@@ -120,7 +125,7 @@ if hasPackageJson(cwd) or lspPath.traverse_parents(cwd, hasPackageJson) then
     local null = require 'null-ls'
     local builtins = null.builtins
 
-    null.config {
+    null.setup {
         sources = {
             builtins.formatting.prettier,
             builtins.diagnostics.eslint,
@@ -149,13 +154,11 @@ nvim_lsp.rust_analyzer.setup { on_attach = on_attach }
 nvim_lsp.graphql.setup { on_attach = on_attach }
 
 -- Lua with Nvim
-local sumneko_root_path = '/usr/local/opt/lua-language-server'
-local sumneko_binary = sumneko_root_path..'/bin/macOS/lua-language-server'
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 nvim_lsp.sumneko_lua.setup {
-  cmd = {sumneko_binary, '-E', sumneko_root_path .. '/main.lua'};
+  cmd = { 'lua-language-server' };
   settings = {
     Lua = {
       runtime = {

@@ -11,6 +11,6 @@ windows:
   window_name: zsh
   panes:
   - focus: 'true'
-    shell_command: git status
+    shell_command: gfa && gl
   - yarn storybook
   - yarn dev
