@@ -1,0 +1,14 @@
+session_name: 'eba'
+start_directory: '$HOME/projects/private/express-basic-auth'
+
+windows:
+- layout: tiled
+  focus: 'true'
+  window_name: nvim
+  panes:
+  - nvim .
+- layout: tiled
+  window_name: zsh
+  panes:
+  - blank
+
