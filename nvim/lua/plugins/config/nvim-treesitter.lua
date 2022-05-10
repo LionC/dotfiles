@@ -1,7 +1,7 @@
 return function ()
     require 'nvim-treesitter.configs'.setup {
-        ensure_installed = 'maintained',
-        ignore_install = { 'haskell' },
+        ensure_installed = 'all',
+        ignore_install = { 'haskell', 'phpdoc' },
         highlight = {
             enable = true,
         },
