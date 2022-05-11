@@ -46,7 +46,7 @@ return function ()
         hijack_cursor = true,
         -- show lsp diagnostics in the signcolumn
         diagnostics = {
-            enable = true
+            enable = false,
         },
         -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
         update_focused_file = {
