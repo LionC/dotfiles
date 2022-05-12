@@ -14,3 +14,4 @@ windows:
     shell_command: gfa && gl
   - yarn storybook
   - yarn dev
+  - yarn relay --watch
