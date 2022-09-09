@@ -1,0 +1,15 @@
+session_name: 'ctrl'
+start_directory: '$HOME/projects/opencreek/ctrl'
+
+windows:
+- layout: tiled
+  focus: 'true'
+  window_name: nvim
+  panes:
+  - nvim
+- layout: tiled
+  window_name: zsh
+  panes:
+  - focus: 'true'
+    shell_command: git status
+  - yarn start
