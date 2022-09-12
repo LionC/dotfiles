@@ -123,16 +123,16 @@ if hasPackageJson(cwd) or lspPath.traverse_parents(cwd, hasPackageJson) then
     }
 
     -- Linting & Formatting
-    --- local null = require 'null-ls'
-    --- local builtins = null.builtins
+    local null = require 'null-ls'
+    local builtins = null.builtins
 
-    --- null.setup {
-        --- sources = {
-            --- builtins.formatting.prettier,
-            --- builtins.diagnostics.eslint,
-        --- },
-        --- on_attach = on_attach,
-    --- }
+    null.setup {
+        sources = {
+           builtins.formatting.prettier,
+           builtins.diagnostics.eslint,
+        },
+        on_attach = on_attach,
+    }
 else
     -- Deno
     nvim_lsp.denols.setup {
