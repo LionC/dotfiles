@@ -48,7 +48,10 @@ nest.applyKeymaps {
             { 'f', lsp.formatting_sync },
             { 's', lsp.signature_help },
             { 'h', lsp.hover },
-        }}
+        }},
+        { 'f', {
+            { 'r', '<Cmd>Telescope resume<CR>' },
+        }},
     }},
 
     { mode = 'i', options = { expr = true },
