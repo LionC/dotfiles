@@ -150,6 +150,9 @@ nvim_lsp.rust_analyzer.setup { on_attach = on_attach }
 -- GraphQL
 nvim_lsp.graphql.setup { on_attach = on_attach }
 
+-- Emmet
+nvim_lsp.emmet_ls.setup {}
+
 -- Lua with Nvim
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
