@@ -51,6 +51,10 @@ nest.applyKeymaps {
         }},
         { 'f', {
             { 'r', '<Cmd>Telescope resume<CR>' },
+            { 's', '<Cmd>Telescope lsp_document_symbols<CR>' },
+            { 'o', '<Cmd>Telescope oldfiles<CR>' },
+            { 'j', '<Cmd>Telescope jumplist<CR>' },
+            { 'p', '<Cmd>Telescope builtin<CR>' },
         }},
     }},
 
