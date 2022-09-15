@@ -13,7 +13,7 @@ local plugins = {
     { name = 'nvim-telescope/telescope.nvim', config = false },
 
     -- visuals
-    { name = 'famiu/feline.nvim', config = true },
+    { name = 'feline-nvim/feline.nvim', config = true },
     { name = 'LionC/monokai.nvim', config = true },
 
     -- parsing
@@ -26,7 +26,7 @@ local plugins = {
     -- editing
     { name = 'RRethy/nvim-treesitter-textsubjects', config = false },
     { name = 'hrsh7th/nvim-compe', config = true },
-    { name = 'blackCauldron7/surround.nvim', config = true },
+    { name = 'kylechui/nvim-surround', config = true },
 
     -- file tree
     { name = 'kyazdani42/nvim-tree.lua', config = true },
