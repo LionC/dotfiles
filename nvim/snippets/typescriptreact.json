@@ -1,0 +1,23 @@
+{
+    "sx object": {
+        "prefix": "sxo",
+        "body": "sx={{ $1 }}"
+    },
+    "Stack Row": {
+        "prefix": "Row",
+        "body": [
+            "<Stack direction=\"row\">",
+            "   $1",
+            "</Stack>"
+        ]
+    },
+    "Stack Column": {
+        "prefix": "Column",
+        "body": [
+            "<Stack direction=\"column\">",
+            "   $1",
+            "</Stack>"
+        ]
+    }
+}
+

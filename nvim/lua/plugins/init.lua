@@ -32,7 +32,7 @@ local plugins = {
     { name = 'kyazdani42/nvim-tree.lua', config = true },
 
     -- snippets
-    { name = 'hrsh7th/vim-vsnip', config = false },
+    { name = 'hrsh7th/vim-vsnip', config = true },
     { name = 'hrsh7th/vim-vsnip-integ', config = false },
 
     { name = 'gennaro-tedesco/nvim-jqx', config = false },
