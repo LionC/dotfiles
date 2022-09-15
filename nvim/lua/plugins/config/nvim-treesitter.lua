@@ -37,5 +37,8 @@ return function ()
             },
         },
     }
+
+    -- vim.wo.foldmethod   = 'expr'
+    -- vim.wo.foldexpr     = vim.api.nvim_call_function('nvim_treesitter#foldexpr', {})
 end
 

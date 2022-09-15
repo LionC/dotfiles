@@ -10,7 +10,7 @@ local plugins = {
     { name = 'nvim-lua/plenary.nvim', config = false },
 
     -- fuzzy finding
-    { name = 'nvim-telescope/telescope.nvim', config = false },
+    { name = 'nvim-telescope/telescope.nvim', config = true },
 
     -- visuals
     { name = 'feline-nvim/feline.nvim', config = true },
