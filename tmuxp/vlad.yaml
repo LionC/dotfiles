@@ -1,0 +1,14 @@
+session_name: 'vlad'
+start_directory: '$HOME/projects/opencreek/vlad'
+
+windows:
+- layout: tiled
+  focus: 'true'
+  window_name: nvim
+  panes:
+  - nvim
+- layout: tiled
+  window_name: zsh
+  panes:
+  - focus: 'true'
+    shell_command: gfa
