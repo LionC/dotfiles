@@ -73,9 +73,21 @@ local function hasPackageJson(path)
     return exists
 end
 
-local cwd = vim.fn.getcwd()
+local function hasDenoConfig(path)
+    local jsonPath = lspPath.join(path, 'deno.json')
+    local jsonExists = lspPath.exists(jsonPath)
 
-if hasPackageJson(cwd) or lspPath.traverse_parents(cwd, hasPackageJson) then
+    local jsoncPath = lspPath.join(path, 'deno.jsonc')
+    local jsoncExists = lspPath.exists(jsoncPath)
+
+    return jsonExists or jsoncExists
+end
+
+local cwd = vim.fn.getcwd()
+local denoConfigFound = hasDenoConfig(cwd) or lspPath.traverse_parents(cwd, hasDenoConfig)
+local packageJsonFound = hasPackageJson(cwd) or lspPath.traverse_parents(cwd, hasPackageJson)
+
+if (not denoConfigFound) and packageJsonFound then
     -- Yarn pnp workaround
     vim.cmd [[
         function! ParseURI(uri)
