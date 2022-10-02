@@ -42,7 +42,7 @@ nest.applyKeymaps {
     { '<leader>', {
         -- LSP
         { 'l', {
-            { 'd', vim.lsp.diagnostic.show_line_diagnostics },
+            -- { 'd', vim.lsp.diagnostic.show_line_diagnostics },
             { 'c', lsp.code_action },
             { 'r', lsp.rename },
             { 'f', lsp.formatting_sync },
