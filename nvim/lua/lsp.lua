@@ -59,7 +59,7 @@ local on_attach = function(client, bufnr)
       { '[d', diag.goto_prev },
   }
 
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities["documentFormattingProvider"] then
     vim.cmd [[
         autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
     ]]
@@ -113,8 +113,8 @@ if (not denoConfigFound) and packageJsonFound then
     -- Typescript
     nvim_lsp.tsserver.setup {
         on_attach = function(client, bufnr)
-            client.resolved_capabilities.document_formatting = false
-            client.resolved_capabilities.document_range_formatting = false
+            client.server_capabilities["documentFormattingProvider"] = false
+            client.server_capabilities["documentRangeFormattingProvider"] = false
 
             local ts_utils = require 'nvim-lsp-ts-utils'
             ts_utils.setup {}
