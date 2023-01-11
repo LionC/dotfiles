@@ -135,16 +135,16 @@ if (not denoConfigFound) and packageJsonFound then
     }
 
     -- Linting & Formatting
-    local null = require 'null-ls'
-    local builtins = null.builtins
+    --local null = require 'null-ls'
+    --local builtins = null.builtins
 
-    null.setup {
-        sources = {
-           builtins.formatting.prettier,
-           builtins.diagnostics.eslint,
-        },
-        on_attach = on_attach,
-    }
+    --null.setup {
+    --    sources = {
+    --       builtins.formatting.prettier,
+    --       builtins.diagnostics.eslint,
+    --    },
+    --    on_attach = on_attach,
+    --}
 else
     -- Deno
     nvim_lsp.denols.setup {
@@ -163,7 +163,7 @@ nvim_lsp.rust_analyzer.setup { on_attach = on_attach }
 nvim_lsp.graphql.setup { on_attach = on_attach }
 
 -- Emmet
-nvim_lsp.emmet_ls.setup {}
+-- nvim_lsp.emmet_ls.setup {}
 
 -- Lua with Nvim
 local runtime_path = vim.split(package.path, ';')

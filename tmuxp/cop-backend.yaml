@@ -12,5 +12,4 @@ windows:
   panes:
   - focus: 'true'
     shell_command: gfa && gl
-  - docker-compose up
   - yarn dev

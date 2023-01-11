@@ -18,6 +18,9 @@ nest.applyKeymaps {
         { '?',      'ms?' },
     }},
 
+    { ']q', ':<Cmd>cn<CR>' },
+    { '[q', ':<Cmd>cp<CR>' },
+
     -- Buffer navigation
     { '<BS>',   '<C-^>' },
     { 'gb',     '<C-o>' },
@@ -42,7 +45,7 @@ nest.applyKeymaps {
     { '<leader>', {
         -- LSP
         { 'l', {
-            -- { 'd', vim.lsp.diagnostic.show_line_diagnostics },
+            { 'd', vim.diagnostic.open_float },
             { 'c', lsp.code_action },
             { 'r', lsp.rename },
             { 'f', lsp.formatting_sync },
