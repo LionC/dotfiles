@@ -18,6 +18,13 @@
             "   $1",
             "</Stack>"
         ]
+    },
+    "Grid Template": {
+        "prefix": "GridTemplate",
+        "body": [
+            "\" some thing \" auto",
+            "/ 1fr  1fr",
+        ]
     }
 }
 
