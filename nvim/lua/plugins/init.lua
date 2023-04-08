@@ -15,6 +15,7 @@ local plugins = {
     -- visuals
     { name = 'feline-nvim/feline.nvim', config = true },
     { name = 'LionC/monokai.nvim', config = true },
+    { name = 'rcarriga/nvim-notify', config = true },
 
     -- parsing
     { name = 'neovim/nvim-lspconfig', config = false },
