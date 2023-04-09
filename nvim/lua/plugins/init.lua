@@ -13,7 +13,7 @@ local plugins = {
     { name = 'feline-nvim/feline.nvim',                     config = true  },
     { name = 'LionC/monokai.nvim',                          config = true  },
     { name = 'rcarriga/nvim-notify',                        config = true  },
-    { name = 'glepnir/dashboard-nvim',                      config = false },
+    { name = 'glepnir/dashboard-nvim',                      config = true  },
     -- parsing
     { name = 'neovim/nvim-lspconfig',                       config = false },
     { name = 'jose-elias-alvarez/null-ls.nvim',             config = false },
