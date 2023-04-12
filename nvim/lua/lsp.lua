@@ -27,7 +27,6 @@ local on_attach = function(client, bufnr)
 
   vim.cmd [[
       command! LspDef               lua vim.lsp.buf.definition()
-      command! LspFormatting        lua vim.lsp.buf.formatting()
       command! LspCodeAction        lua vim.lsp.buf.code_action()
       command! LspHover             lua vim.lsp.buf.hover()
       command! LspRename            lua vim.lsp.buf.rename()
@@ -61,7 +60,7 @@ local on_attach = function(client, bufnr)
 
   if client.server_capabilities["documentFormattingProvider"] then
     vim.cmd [[
-        autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+        autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
     ]]
   end
 end
@@ -88,28 +87,6 @@ local denoConfigFound = hasDenoConfig(cwd) or lspPath.traverse_parents(cwd, hasD
 local packageJsonFound = hasPackageJson(cwd) or lspPath.traverse_parents(cwd, hasPackageJson)
 
 if (not denoConfigFound) and packageJsonFound then
-    -- Yarn pnp workaround
-    vim.cmd [[
-        function! ParseURI(uri)
-            return substitute(a:uri, '%\([a-fA-F0-9][a-fA-F0-9]\)', '\=nr2char("0x" . submatch(1))', "g")
-        endfunction
-
-        function! RzipOverride()
-            autocmd! zip BufReadCmd   zipfile:*/*
-            exe "au! zip BufReadCmd ".g:zipPlugin_ext
-            autocmd zip BufReadCmd   zipfile:*/*
-                        \ if ParseURI(expand("<amatch>")) !=# expand("<amatch>") |
-                        \     sil! exe "bwipeout " . fnameescape(ParseURI(expand("<amatch>"))) |
-                        \     exe "keepalt file " . fnameescape(ParseURI(expand("<amatch>"))) |
-                        \     sil! exe "bwipeout " . fnameescape(expand("<amatch>")) |
-                        \ endif
-            autocmd zip BufReadCmd   zipfile:*/* call rzip#Read(ParseURI(expand("<amatch>")), 1)
-            exe "au zip BufReadCmd ".g:zipPlugin_ext." call rzip#Browse(ParseURI(expand('<amatch>')))"
-        endfunction
-
-        autocmd VimEnter * call RzipOverride()
-    ]]
-
     -- Typescript
     nvim_lsp.tsserver.setup {
         on_attach = function(client, bufnr)
@@ -135,16 +112,16 @@ if (not denoConfigFound) and packageJsonFound then
     }
 
     -- Linting & Formatting
-    --local null = require 'null-ls'
-    --local builtins = null.builtins
+    local null = require 'null-ls'
+    local builtins = null.builtins
 
-    --null.setup {
-    --    sources = {
-    --       builtins.formatting.prettier,
-    --       builtins.diagnostics.eslint,
-    --    },
-    --    on_attach = on_attach,
-    --}
+    null.setup {
+        sources = {
+           builtins.formatting.prettier,
+           builtins.diagnostics.eslint_d,
+        },
+        on_attach = on_attach,
+    }
 else
     -- Deno
     nvim_lsp.denols.setup {
@@ -166,23 +143,22 @@ nvim_lsp.graphql.setup { on_attach = on_attach }
 -- nvim_lsp.emmet_ls.setup {}
 
 -- Lua with Nvim
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, 'lua/?.lua')
-table.insert(runtime_path, 'lua/?/init.lua')
-nvim_lsp.sumneko_lua.setup {
-  cmd = { 'lua-language-server' };
+nvim_lsp.lua_ls.setup {
   settings = {
     Lua = {
       runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
         version = 'LuaJIT',
-        path = runtime_path,
       },
       diagnostics = {
-        globals = { 'vim' },
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
       },
       workspace = {
-        library = vim.api.nvim_get_runtime_file('', true),
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
       },
+      -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
         enable = false,
       },

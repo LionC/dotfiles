@@ -48,7 +48,6 @@ nest.applyKeymaps {
             { 'd', vim.diagnostic.open_float },
             { 'c', lsp.code_action },
             { 'r', lsp.rename },
-            { 'f', lsp.formatting_sync },
             { 's', lsp.signature_help },
             { 'h', lsp.hover },
         }},
