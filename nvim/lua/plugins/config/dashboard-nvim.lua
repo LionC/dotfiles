@@ -20,18 +20,6 @@ return function()
                     key = 'f',
                 },
                 {
-                    desc = ' Keymaps',
-                    group = 'DiagnosticHint',
-                    action = 'Telescope keymaps',
-                    key = 'k',
-                },
-                {
-                    desc = ' Dotfiles',
-                    group = 'Number',
-                    action = 'Telescope file_browser cwd=$HOME/Appdata/local/nvim', -- Change to your dotfiles path
-                    key = 'd',
-                },
-                {
                     desc = '󰝒 New File',
                     group = 'DiagnosticWarn',
                     action = 'ene ',
