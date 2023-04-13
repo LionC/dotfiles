@@ -1,0 +1,4 @@
+directory: ~/Music/Collection/Tagged
+library: ~/Music/Collection/beets.db
+import:
+  move: yes
