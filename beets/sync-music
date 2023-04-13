@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+rsyncmd="rsync --progress --verbose --recursive --update --times --human-readable"
+nasroot="homenas.local:/volume1/music"
+localroot="$HOME/Music"
+collection="Collection"
+serato="_Serato_"
+
+echo Uploading...
+echo ------------
+$rsyncmd $localroot/$collection $localroot/$serato $nasroot
+echo ...upload done!
+echo
+echo Downloading...
+echo ______________
+$rsyncmd $nasroot/$collection $nasroot/$serato $localroot
+echo ...download done!
+
