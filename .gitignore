@@ -1,3 +1,5 @@
+deluge/
+gtk-2.0/
 nvim/plugin/packer_compiled.lua
 gh/
 yarn/
