@@ -79,7 +79,6 @@ plugins=(
 	brew
 	emoji
 	git
-	gcloud
 	httpie
 	macos
 	rand-quote
@@ -104,6 +103,11 @@ fi
 
 DOT_CONFIGS=$HOME/.config
 source "$DOT_CONFIGS/zsh/aliases.sh"
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 export PATH="/usr/local/bin:/Users/lionc/.deno/bin:/usr/local/sbin:$HOME/.jsvu:$HOME/go/bin:$PATH"
 source $HOME/.cargo/env

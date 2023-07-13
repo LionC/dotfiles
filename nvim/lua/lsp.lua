@@ -1,5 +1,6 @@
 local nvim_lsp = require 'lspconfig'
-local lspPath = require 'lspconfig.util'.path
+local lspUtil = require 'lspconfig.util'
+local lspPath = lspUtil.path
 local nest = require 'nest'
 
 local border = {
@@ -89,6 +90,8 @@ local packageJsonFound = hasPackageJson(cwd) or lspPath.traverse_parents(cwd, ha
 if (not denoConfigFound) and packageJsonFound then
     -- Typescript
     nvim_lsp.tsserver.setup {
+        -- Speed up tsserver by requiring the root directory to be a git repo
+        root_dir = lspUtil.root_pattern(".git"),
         on_attach = function(client, bufnr)
             client.server_capabilities["documentFormattingProvider"] = false
             client.server_capabilities["documentRangeFormattingProvider"] = false
