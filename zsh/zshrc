@@ -107,3 +107,5 @@ source "$DOT_CONFIGS/zsh/aliases.sh"
 
 export PATH="/usr/local/bin:/Users/lionc/.deno/bin:/usr/local/sbin:$HOME/.jsvu:$HOME/go/bin:$PATH"
 source $HOME/.cargo/env
+
+bindkey -v
