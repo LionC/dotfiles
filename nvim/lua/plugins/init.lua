@@ -20,17 +20,24 @@ local plugins = {
     { name = 'nvim-treesitter/nvim-treesitter',             config = true  },
     { name = 'nvim-treesitter/nvim-treesitter-textobjects', config = false },
     { name = 'jose-elias-alvarez/nvim-lsp-ts-utils',        config = false },
-    -- editing
-    { name = 'RRethy/nvim-treesitter-textsubjects',         config = false },
-    { name = 'hrsh7th/nvim-compe',                          config = true  },
-    { name = 'kylechui/nvim-surround',                      config = true  },
-    -- file tree
-    { name = 'kyazdani42/nvim-tree.lua',                    config = true  },
     -- snippets
-    { name = 'hrsh7th/vim-vsnip',                           config = true  },
+    { name = 'hrsh7th/cmp-vsnip',                           config = false },
+    { name = 'hrsh7th/vim-vsnip',                           config = false },
     { name = 'hrsh7th/vim-vsnip-integ',                     config = false },
     { name = 'gennaro-tedesco/nvim-jqx',                    config = false },
     { name = 'lewis6991/gitsigns.nvim',                     config = true  },
+    -- editing
+    { name = 'RRethy/nvim-treesitter-textsubjects',         config = false },
+    { name = 'hrsh7th/nvim-cmp',                            config = true  },
+    { name = 'hrsh7th/cmp-nvim-lsp',                        config = false },
+    { name = 'hrsh7th/cmp-buffer',                          config = false },
+    { name = 'hrsh7th/cmp-path',                            config = false },
+    { name = 'hrsh7th/cmp-cmdline',                         config = false },
+    { name = 'hrsh7th/cmp-nvim-lsp-signature-help',         config = false },
+    { name = 'hrsh7th/cmp-emoji',                           config = false },
+    { name = 'kylechui/nvim-surround',                      config = true  },
+    -- file tree
+    { name = 'kyazdani42/nvim-tree.lua',                    config = true  },
     -- config utils
     { name = 'LionC/nest.nvim', branch = 'release-v1.1' },
 }

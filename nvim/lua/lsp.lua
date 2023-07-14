@@ -2,29 +2,24 @@ local nvim_lsp = require 'lspconfig'
 local lspUtil = require 'lspconfig.util'
 local lspPath = lspUtil.path
 local nest = require 'nest'
+local cmpLsp = require 'cmp_nvim_lsp'
 
-local border = {
-      {" ", "FloatBorder"},
-      {"▔", "FloatBorder"},
-      {" ", "FloatBorder"},
-      {"▕", "FloatBorder"},
-      {" ", "FloatBorder"},
-      {"▁", "FloatBorder"},
-      {" ", "FloatBorder"},
-      {"▏", "FloatBorder"},
+vim.diagnostic.config {     
+    float = { border = "rounded" }, 
 }
 
 vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
 vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
 
+local capabilities = cmpLsp.default_capabilities()
 
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Add borderds to floating LSP windows
-  vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
-  vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border})
+  vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+  vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
   vim.cmd [[
       command! LspDef               lua vim.lsp.buf.definition()
@@ -92,6 +87,7 @@ if (not denoConfigFound) and packageJsonFound then
     nvim_lsp.tsserver.setup {
         -- Speed up tsserver by requiring the root directory to be a git repo
         root_dir = lspUtil.root_pattern(".git"),
+        capabilities = capabilities,
         on_attach = function(client, bufnr)
             client.server_capabilities["documentFormattingProvider"] = false
             client.server_capabilities["documentRangeFormattingProvider"] = false
@@ -121,14 +117,16 @@ if (not denoConfigFound) and packageJsonFound then
     null.setup {
         sources = {
            builtins.formatting.prettier,
-           builtins.diagnostics.eslint_d,
+           builtins.diagnostics.eslint,
         },
+        capabilities = capabilities,
         on_attach = on_attach,
     }
 else
     -- Deno
     nvim_lsp.denols.setup {
         on_attach = on_attach,
+        capabilities = capabilities,
         init_options = {
             enable = true,
             lint = true,
@@ -137,35 +135,39 @@ else
 end
 
 -- Rust
-nvim_lsp.rust_analyzer.setup { on_attach = on_attach }
+nvim_lsp.rust_analyzer.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
 
 -- GraphQL
-nvim_lsp.graphql.setup { on_attach = on_attach }
-
--- Emmet
--- nvim_lsp.emmet_ls.setup {}
+nvim_lsp.graphql.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
 
 -- Lua with Nvim
 nvim_lsp.lua_ls.setup {
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
+    capabilities = capabilities,
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {'vim'},
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
+        },
     },
-  },
 }
 

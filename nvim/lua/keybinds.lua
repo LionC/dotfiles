@@ -59,10 +59,5 @@ nest.applyKeymaps {
             { 'p', '<Cmd>Telescope builtin<CR>' },
         }},
     }},
-
-    { mode = 'i', options = { expr = true },
-        { '<CR>',       'compe#confirm("<CR>")' },
-        { '<C-Space>',  'compe#complete()' },
-    },
 }
 
