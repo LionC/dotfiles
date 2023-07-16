@@ -45,6 +45,7 @@ require('packer').startup(function(use)
             'hrsh7th/vim-vsnip',
             'neovim/nvim-lspconfig',
         }},
+        'onsails/lspkind.nvim',
     }}
     use { 'kylechui/nvim-surround', config = require 'plugins.config.surround', requires = {
         'RRethy/nvim-treesitter-textsubjects',

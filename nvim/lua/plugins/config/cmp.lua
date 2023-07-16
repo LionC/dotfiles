@@ -1,4 +1,5 @@
 return function ()
+    local lspkind = require 'lspkind'
     local cmp = require 'cmp'
     local bordered = cmp.config.window.bordered()
 
@@ -37,6 +38,13 @@ return function ()
                 { name = 'buffer', priority = 0 },
             }
         ),
+        formatting = {
+            format = lspkind.cmp_format {
+                mode = 'symbol_text',
+                maxwidth = 50,
+                ellipsis_char = '...',
+            }
+        },
         experimental = { ghost_text = true },
     }
 end

@@ -1,4 +1,5 @@
-local nest = require('nest')
+local nest = require 'nest'
+local playground = require 'playground'
 
 local lsp = vim.lsp.buf
 
@@ -28,6 +29,9 @@ nest.applyKeymaps {
     -- Searching
     { '<Esc>',  '<Cmd>nohl<CR>' },
 
+    -- Files float
+    { '\\', '<Cmd>:Neotree toggle=true source=filesystem position=float reveal=true reveal_force_cwd=true<CR>' },
+
     -- Control mappings
     { '<C-', {
         -- Window navgiation
@@ -39,7 +43,7 @@ nest.applyKeymaps {
         { 'p>', '<Cmd>Telescope find_files<CR>' },
         { 'f>', '<Cmd>Telescope live_grep<CR>' },
         -- File Tree
-        { 'n>', '<Cmd>:Neotree toggle=true source=filesystem position=float reveal=true reveal_force_cwd=true<CR>' },
+        { 'n>', '<Cmd>:Neotree toggle=true source=filesystem position=left reveal=true reveal_force_cwd=true<CR>' },
     }},
 
     { '<leader>', {
@@ -65,6 +69,8 @@ nest.applyKeymaps {
             { 'g', '<Cmd>:Neotree toggle=true source=git_status position=float reveal=true reveal_force_cwd=true<CR>' },
             { 'b', '<Cmd>:Neotree toggle=true source=buffers position=float reveal=true reveal_force_cwd=true<CR>' },
         }},
+        -- Playground
+        { 'p', playground.print_node_crumbs },
     }},
 }
 
