@@ -19,16 +19,15 @@ require('packer').startup(function(use)
     use { 'glepnir/dashboard-nvim', config = require 'plugins.config.dashboard', requires = {
         'kyazdani42/nvim-web-devicons'
     }}
-    -- parsing
+    -- parsing & lsp
     use 'neovim/nvim-lspconfig'
     use 'jose-elias-alvarez/null-ls.nvim'
     use { 'nvim-treesitter/nvim-treesitter', config = require 'plugins.config.treesitter' }
     use { 'nvim-treesitter/nvim-treesitter-textobjects', requires = {
         'nvim-treesitter/nvim-treesitter',
     }}
-    use { 'jose-elias-alvarez/nvim-lsp-ts-utils', requires = {
+    use { 'jose-elias-alvarez/typescript.nvim', requires = {
         'neovim/nvim-lspconfig',
-        'nvim-lua/plenary.nvim',
     }}
     use 'gennaro-tedesco/nvim-jqx'
     use { 'lewis6991/gitsigns.nvim', config = require 'plugins.config.gitsigns'  }
@@ -51,10 +50,7 @@ require('packer').startup(function(use)
         'RRethy/nvim-treesitter-textsubjects',
         'nvim-treesitter/nvim-treesitter',
     }}
-    -- file tree
-    --use { 'kyazdani42/nvim-tree.lua', config = require 'plugins.config.tree', requires = {
-    --    'kyazdani42/nvim-web-devicons',
-    --}}
+    -- files
     use { 'nvim-neo-tree/neo-tree.nvim', branch = 'v3.x', config = require 'plugins.config.neo-tree', requires = {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",

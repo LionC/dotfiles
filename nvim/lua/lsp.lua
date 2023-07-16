@@ -84,30 +84,32 @@ local packageJsonFound = hasPackageJson(cwd) or lspPath.traverse_parents(cwd, ha
 
 if (not denoConfigFound) and packageJsonFound then
     -- Typescript
-    nvim_lsp.tsserver.setup {
-        -- Speed up tsserver by requiring the root directory to be a git repo
-        root_dir = lspUtil.root_pattern(".git"),
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-            client.server_capabilities["documentFormattingProvider"] = false
-            client.server_capabilities["documentRangeFormattingProvider"] = false
+    require 'typescript'.setup {
+        server = { -- pass options to lspconfig's setup method
+            -- Speed up tsserver by requiring the root directory to be a git repo
+            root_dir = lspUtil.root_pattern(".git"),
+            capabilities = capabilities,
+            on_attach = function(client, bufnr)
+                client.server_capabilities["documentFormattingProvider"] = false
+                client.server_capabilities["documentRangeFormattingProvider"] = false
 
-            local ts_utils = require 'nvim-lsp-ts-utils'
-            ts_utils.setup {}
-            ts_utils.setup_client(client)
+                local ts_utils = require 'nvim-lsp-ts-utils'
+                ts_utils.setup {}
+                ts_utils.setup_client(client)
 
-            nest.applyKeymaps {
-                buffer = true,
+                nest.applyKeymaps {
+                    buffer = true,
 
-                { '<leader>t', {
-                    { 'o', '<cmd>TSLspOrganize<CR>' },
-                    { 'r', '<cmd>TSLspRenameFile<CR>' },
-                    { 'i', '<cmd>TSLspImportAll<CR>' },
-                }},
-            }
+                    { '<leader>t', {
+                        { 'o', '<cmd>TSLspOrganize<CR>' },
+                        { 'r', '<cmd>TSLspRenameFile<CR>' },
+                        { 'i', '<cmd>TSLspImportAll<CR>' },
+                    }},
+                }
 
-            on_attach(client, bufnr)
-        end,
+                on_attach(client, bufnr)
+            end,
+        },
     }
 
     -- Linting & Formatting
@@ -118,6 +120,7 @@ if (not denoConfigFound) and packageJsonFound then
         sources = {
            builtins.formatting.prettier,
            builtins.diagnostics.eslint,
+           require 'typescript.extensions.null-ls.code-actions',
         },
         capabilities = capabilities,
         on_attach = on_attach,
