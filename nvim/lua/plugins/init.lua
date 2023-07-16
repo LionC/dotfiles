@@ -1,71 +1,66 @@
--- List of all plugins to load, set `config` to `true` to autoload the function provided in plugins/config/<pluginname>
--- according to `pluginIdentifierToFilename` below
-local plugins = {
-    -- packer itself
-    { name = 'wbthomason/packer.nvim',                      config = false },
-    -- dependencies
-    { name = 'nvim-lua/popup.nvim',                         config = false },
-    { name = 'kyazdani42/nvim-web-devicons',                config = false },
-    { name = 'nvim-lua/plenary.nvim',                       config = false },
-    -- fuzzy finding
-    { name = 'nvim-telescope/telescope.nvim',               config = true  },
-    -- visuals
-    { name = 'feline-nvim/feline.nvim',                     config = true  },
-    { name = 'LionC/monokai.nvim',                          config = true  },
-    { name = 'rcarriga/nvim-notify',                        config = true  },
-    { name = 'glepnir/dashboard-nvim',                      config = true  },
-    -- parsing
-    { name = 'neovim/nvim-lspconfig',                       config = false },
-    { name = 'jose-elias-alvarez/null-ls.nvim',             config = false },
-    { name = 'nvim-treesitter/nvim-treesitter',             config = true  },
-    { name = 'nvim-treesitter/nvim-treesitter-textobjects', config = false },
-    { name = 'jose-elias-alvarez/nvim-lsp-ts-utils',        config = false },
-    -- snippets
-    { name = 'hrsh7th/cmp-vsnip',                           config = false },
-    { name = 'hrsh7th/vim-vsnip',                           config = false },
-    { name = 'hrsh7th/vim-vsnip-integ',                     config = false },
-    { name = 'gennaro-tedesco/nvim-jqx',                    config = false },
-    { name = 'lewis6991/gitsigns.nvim',                     config = true  },
-    -- editing
-    { name = 'RRethy/nvim-treesitter-textsubjects',         config = false },
-    { name = 'hrsh7th/nvim-cmp',                            config = true  },
-    { name = 'hrsh7th/cmp-nvim-lsp',                        config = false },
-    { name = 'hrsh7th/cmp-buffer',                          config = false },
-    { name = 'hrsh7th/cmp-path',                            config = false },
-    { name = 'hrsh7th/cmp-cmdline',                         config = false },
-    { name = 'hrsh7th/cmp-nvim-lsp-signature-help',         config = false },
-    { name = 'hrsh7th/cmp-emoji',                           config = false },
-    { name = 'kylechui/nvim-surround',                      config = true  },
-    -- file tree
-    { name = 'kyazdani42/nvim-tree.lua',                    config = true  },
-    -- config utils
-    { name = 'LionC/nest.nvim', branch = 'release-v1.1' },
-}
-
--- Generate short name for plugin to use as filename
-local function pluginIdentifierToFilename (identifier)
-    return string.match(identifier, '/([^%.]*)%.?.*$')
-end
-
--- Build packer specs
-local specs = {}
-for i, plugin in ipairs(plugins) do
-    specs[i] = { plugin.name }
-
-    if plugin.config then
-        local filename = pluginIdentifierToFilename(plugin.name)
-        local pluginConfig = require('plugins.config.' .. filename)
-        specs[i].config = pluginConfig
-    end
-end
-
--- Launch packer and call on all specs
 require('packer').startup(function(use)
-    for _, spec in ipairs(specs) do
-        use(spec)
-    end
+    -- packer itself
+    use 'wbthomason/packer.nvim'
+    -- dependencies
+    use 'nvim-lua/popup.nvim'
+    -- fuzzy finding
+    use { 'nvim-telescope/telescope.nvim', config = require 'plugins.config.telescope', requires = {
+        'nvim-lua/plenary.nvim',
+        'kyazdani42/nvim-web-devicons',
+        'nvim-treesitter/nvim-treesitter',
+    }}
+    -- visuals
+    use { 'LionC/monokai.nvim', config = require 'plugins.config.monokai'  }
+    use { 'feline-nvim/feline.nvim', config = require 'plugins.config.feline', requires = {
+        'kyazdani42/nvim-web-devicons',
+        'lewis6991/gitsigns.nvim'
+    }}
+    use { 'rcarriga/nvim-notify', config = require 'plugins.config.notify'  }
+    use { 'glepnir/dashboard-nvim', config = require 'plugins.config.dashboard', requires = {
+        'kyazdani42/nvim-web-devicons'
+    }}
+    -- parsing
+    use 'neovim/nvim-lspconfig'
+    use 'jose-elias-alvarez/null-ls.nvim'
+    use { 'nvim-treesitter/nvim-treesitter', config = require 'plugins.config.treesitter' }
+    use { 'nvim-treesitter/nvim-treesitter-textobjects', requires = {
+        'nvim-treesitter/nvim-treesitter',
+    }}
+    use { 'jose-elias-alvarez/nvim-lsp-ts-utils', requires = {
+        'neovim/nvim-lspconfig',
+        'nvim-lua/plenary.nvim',
+    }}
+    use 'gennaro-tedesco/nvim-jqx'
+    use { 'lewis6991/gitsigns.nvim', config = require 'plugins.config.gitsigns'  }
+    -- editing
+    use { 'RRethy/nvim-treesitter-textsubjects', after = 'nvim-treesitter' }
+    use { 'hrsh7th/nvim-cmp', config = require 'plugins.config.cmp', requires = {
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-cmdline',
+        'hrsh7th/cmp-nvim-lsp-signature-help',
+        'hrsh7th/cmp-emoji',
+        'hrsh7th/cmp-vsnip',
+        { 'hrsh7th/vim-vsnip-integ', requires = {
+            'hrsh7th/vim-vsnip',
+            'neovim/nvim-lspconfig',
+        }},
+    }}
+    use { 'kylechui/nvim-surround', config = require 'plugins.config.surround', requires = {
+        'RRethy/nvim-treesitter-textsubjects',
+        'nvim-treesitter/nvim-treesitter',
+    }}
+    -- file tree
+    --use { 'kyazdani42/nvim-tree.lua', config = require 'plugins.config.tree', requires = {
+    --    'kyazdani42/nvim-web-devicons',
+    --}}
+    use { 'nvim-neo-tree/neo-tree.nvim', branch = 'v3.x', config = require 'plugins.config.neo-tree', requires = {
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons",
+        "MunifTanjim/nui.nvim",
+    }}
+    -- config utils
+    use 'LionC/nest.nvim'
 end)
-
--- Provide specs for use in other files
-return specs
 

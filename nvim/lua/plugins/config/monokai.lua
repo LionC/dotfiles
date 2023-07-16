@@ -1,4 +1,4 @@
 return function()
-    require('monokai')
+    require 'monokai'
 end
 

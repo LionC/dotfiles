@@ -39,7 +39,7 @@ nest.applyKeymaps {
         { 'p>', '<Cmd>Telescope find_files<CR>' },
         { 'f>', '<Cmd>Telescope live_grep<CR>' },
         -- File Tree
-        { 'n>', '<Cmd>NvimTreeToggle<CR>' },
+        { 'n>', '<Cmd>:Neotree toggle=true source=filesystem position=float reveal=true reveal_force_cwd=true<CR>' },
     }},
 
     { '<leader>', {
@@ -51,12 +51,19 @@ nest.applyKeymaps {
             { 's', lsp.signature_help },
             { 'h', lsp.hover },
         }},
+        -- Telescope
         { 'f', {
             { 'r', '<Cmd>Telescope resume<CR>' },
             { 's', '<Cmd>Telescope lsp_document_symbols<CR>' },
             { 'o', '<Cmd>Telescope oldfiles<CR>' },
             { 'j', '<Cmd>Telescope jumplist<CR>' },
             { 'p', '<Cmd>Telescope builtin<CR>' },
+        }},
+        -- Neotree
+        { 'n', {
+            { 'f', '<Cmd>:Neotree toggle=true source=filesystem position=float reveal=true reveal_force_cwd=true<CR>' },
+            { 'g', '<Cmd>:Neotree toggle=true source=git_status position=float reveal=true reveal_force_cwd=true<CR>' },
+            { 'b', '<Cmd>:Neotree toggle=true source=buffers position=float reveal=true reveal_force_cwd=true<CR>' },
         }},
     }},
 }
