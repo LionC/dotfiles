@@ -104,10 +104,13 @@ fi
 DOT_CONFIGS=$HOME/.config
 source "$DOT_CONFIGS/zsh/aliases.sh"
 
+# Docker init
+source $HOME/.docker/init-zsh.sh || true
+
 # NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="/usr/local/bin:/Users/lionc/.deno/bin:/usr/local/sbin:$HOME/.jsvu:$HOME/go/bin:$PATH"
 source $HOME/.cargo/env
