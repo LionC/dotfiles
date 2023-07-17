@@ -1,7 +1,12 @@
 deluge/
+fish/
 gtk-2.0/
+htop/
 nvim/plugin/packer_compiled.lua
 gh/
+ranger/
+rockbox.org/
+simple-update-notifier/
 yarn/
 gcloud/
 XIVLauncher/
