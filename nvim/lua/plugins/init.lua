@@ -31,6 +31,7 @@ require('packer').startup(function(use)
     }}
     use 'gennaro-tedesco/nvim-jqx'
     use { 'lewis6991/gitsigns.nvim', config = require 'plugins.config.gitsigns'  }
+    use { 'williamboman/mason.nvim', config = require 'plugins.config.mason' }
     -- editing
     use { 'RRethy/nvim-treesitter-textsubjects', after = 'nvim-treesitter' }
     use { 'hrsh7th/nvim-cmp', config = require 'plugins.config.cmp', requires = {
