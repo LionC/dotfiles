@@ -76,12 +76,8 @@ export DISABLE_AUTO_TITLE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 	autojump
-	brew
-	emoji
 	git
-	httpie
 	macos
-	rand-quote
 	zsh-autosuggestions
 )
 
@@ -103,9 +99,6 @@ fi
 
 DOT_CONFIGS=$HOME/.config
 source "$DOT_CONFIGS/zsh/aliases.sh"
-
-# Docker init
-source $HOME/.docker/init-zsh.sh || true
 
 # FNM Node Management
 eval "$(fnm env)"

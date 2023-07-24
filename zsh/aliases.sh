@@ -1,5 +1,4 @@
 alias nv="nvim"
-alias zshr="source $HOME/.zshrc"
 alias ls="exa --icons"
 
 #tmux
