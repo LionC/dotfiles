@@ -11,7 +11,7 @@ return function()
                 find_command = { 'rg', '--files', '--hidden', '--color', 'never' }
             },
             live_grep = {
-                additional_args = { '-u' },
+                additional_args = { '--hidden' },
             }
         },
     }
