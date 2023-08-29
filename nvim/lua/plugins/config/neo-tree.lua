@@ -8,6 +8,7 @@ return function()
         filesystem = {
             filtered_items = {
                 hide_dotfiles = false,
+                hide_by_name = { ".git" },
             },
             use_libuv_file_watcher = true,
         },

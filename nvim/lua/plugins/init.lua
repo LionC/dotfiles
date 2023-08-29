@@ -9,6 +9,9 @@ require('packer').startup(function(use)
         'kyazdani42/nvim-web-devicons',
         'nvim-treesitter/nvim-treesitter',
     }}
+    use { 'nvim-telescope/telescope-ui-select.nvim', config = function () require 'telescope'.load_extension 'ui-select' end, requires = {
+        'nvim-telescope/telescope.nvim'
+    }}
     -- visuals
     use { 'LionC/monokai.nvim', config = require 'plugins.config.monokai'  }
     use { 'feline-nvim/feline.nvim', config = require 'plugins.config.feline', requires = {
