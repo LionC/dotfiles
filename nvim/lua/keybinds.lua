@@ -19,8 +19,8 @@ nest.applyKeymaps {
         { '?',      'ms?' },
     }},
 
-    { ']q', ':<Cmd>cn<CR>' },
-    { '[q', ':<Cmd>cp<CR>' },
+    { ']q', '<Cmd>cn<CR>' },
+    { '[q', '<Cmd>cp<CR>' },
 
     -- Buffer navigation
     { '<BS>',   '<C-^>' },
