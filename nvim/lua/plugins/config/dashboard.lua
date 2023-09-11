@@ -25,6 +25,7 @@ return function()
                 },
             },
             packages = { enable = false },
+            project = { enable = false },
             footer = {
                 '',
                 'NVIM v' .. vim.version().major .. '.' .. vim.version().minor .. '.' .. vim.version().patch
