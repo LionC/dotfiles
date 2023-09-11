@@ -14,6 +14,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require 'lazy'.setup {
+    -- Lazy itself
+    'LazyVim/LazyVim',
     -- dependencies
     'nvim-lua/popup.nvim',
     -- fuzzy finding
