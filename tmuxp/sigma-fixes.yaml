@@ -1,0 +1,13 @@
+session_name: sigma-fixes
+start_directory: '$HOME/projects/sigma/fixes'
+
+windows:
+- layout: tiled
+  focus: 'true'
+  window_name: nvim
+  panes:
+  - nvim
+- layout: tiled
+  window_name: zsh
+  panes:
+  - git status
