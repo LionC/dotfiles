@@ -137,6 +137,12 @@ else
     }
 end
 
+-- Go
+nvim_lsp.gopls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+
 -- Rust
 nvim_lsp.rust_analyzer.setup {
     on_attach = on_attach,
