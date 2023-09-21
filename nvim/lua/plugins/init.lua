@@ -33,7 +33,7 @@ require 'lazy'.setup {
         "nvim-tree/nvim-web-devicons",
         'lewis6991/gitsigns.nvim'
     }},
-    { 'rcarriga/nvim-notify', config = require 'plugins.config.notify'  },
+    -- { 'rcarriga/nvim-notify', config = require 'plugins.config.notify'  },
     { 'glepnir/dashboard-nvim', config = require 'plugins.config.dashboard', dependencies = {
         "nvim-tree/nvim-web-devicons",
         'lewis6991/gitsigns.nvim'
