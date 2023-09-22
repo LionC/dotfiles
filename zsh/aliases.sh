@@ -11,5 +11,5 @@ alias gsl="git switch -"
 alias grocket="git commit --allow-empty --message :rocket:"
 
 # turbo
-alias tu="pnpm turbo run --output-logs new-only --concurrency 15"
+alias tu="pnpm turbo run --output-logs new-only --concurrency 15 --summarize"
 
