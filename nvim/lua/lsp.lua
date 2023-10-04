@@ -149,6 +149,12 @@ nvim_lsp.rust_analyzer.setup {
     capabilities = capabilities,
 }
 
+-- Terraform
+nvim_lsp.terraformls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+
 -- GraphQL
 nvim_lsp.graphql.setup {
     on_attach = on_attach,
