@@ -28,7 +28,7 @@ require 'lazy'.setup {
         'nvim-telescope/telescope.nvim'
     }},
     -- visuals
-    { 'LionC/monokai.nvim', config = require 'plugins.config.monokai'  },
+    { 'maxmx03/fluoromachine.nvim', config = require 'plugins.config.fluoromachine' },
     { 'feline-nvim/feline.nvim', config = require 'plugins.config.feline', dependencies = {
         "nvim-tree/nvim-web-devicons",
         'lewis6991/gitsigns.nvim'
