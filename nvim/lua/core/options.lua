@@ -2,7 +2,6 @@ local homeFolder = vim.env.HOME
 
 local options = {
     autoread = true,
-    autoread = true,
     backup = false,
     cmdheight = 1,
     completeopt = { 'menuone', 'noselect' },
