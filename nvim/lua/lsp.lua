@@ -4,8 +4,8 @@ local lspPath = lspUtil.path
 local nest = require 'nest'
 local cmpLsp = require 'cmp_nvim_lsp'
 
-vim.diagnostic.config {     
-    float = { border = "rounded" }, 
+vim.diagnostic.config {
+    float = { border = "rounded" },
 }
 
 vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
