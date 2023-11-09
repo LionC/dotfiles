@@ -69,6 +69,7 @@ nest.applyKeymaps {
             { 'g', '<Cmd>:Neotree toggle=true source=git_status position=float reveal=true reveal_force_cwd=true<CR>' },
             { 'b', '<Cmd>:Neotree toggle=true source=buffers position=float reveal=true reveal_force_cwd=true<CR>' },
         }},
+        { 'c', '<Cmd>%j<CR><Cmd>%s# \\+# #g<CR>' },
         -- Playground
         { 'p', playground.print_node_crumbs },
     }},
