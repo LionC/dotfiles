@@ -9,7 +9,8 @@ alias txa="tmux attach-session -t "
 # git
 alias gsl="git switch -"
 alias grocket="git commit --allow-empty --message :rocket:"
+alias ghgrep="git rev-list --all | xargs git grep"
 
 # turbo
-alias tu="pnpm turbo run --output-logs new-only --summarize --concurrency 15"
+alias tu="pnpm turbo run --summarize --concurrency 20"
 
