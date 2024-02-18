@@ -19,8 +19,14 @@ nest.applyKeymaps {
         { '?',      'ms?' },
     }},
 
-    { ']q', '<Cmd>cn<CR>' },
-    { '[q', '<Cmd>cp<CR>' },
+    { '[', {
+        { 'q', '<Cmd>cp<CR>' },
+        { 'h', '<Cmd>Gitsigns prev_hunk<CR>' },
+    }},
+    { ']', {
+        { 'q', '<Cmd>cn<CR>' },
+        { 'h', '<Cmd>Gitsigns next_hunk<CR>' },
+    }},
 
     -- Buffer navigation
     { '<BS>',   '<C-^>' },
