@@ -1,5 +1,6 @@
 alias nv="nvim"
 alias tf="terraform"
+alias ae="aerospace"
 alias ls="exa --icons"
 
 #tmux
