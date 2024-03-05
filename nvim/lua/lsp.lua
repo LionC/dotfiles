@@ -149,6 +149,12 @@ nvim_lsp.rust_analyzer.setup {
     capabilities = capabilities,
 }
 
+-- OCaml
+nvim_lsp.ocamllsp.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+
 -- Terraform
 nvim_lsp.terraformls.setup {
     on_attach = on_attach,
