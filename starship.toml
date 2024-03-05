@@ -6,8 +6,18 @@ palette = "fluoromachine"
 
 # MODULES
 
+[cmd_duration]
+min_time = 500
+
+[directory]
+style = "pink"
+
+# [git_metrics]
+# disabled = false
+
 [git_status]
 style = "bold orange"
+format = "([$all_status$ahead_behind]($style) )"
 
 [aws]
 disabled = true
@@ -33,7 +43,6 @@ cursor_fg = '#282a36'
 cursor_bg = '#8BA7A7'
 sign_add = '#72f1b8'
 sign_change = '#ff8b39'
-sign_delete = '#fe4450'
 error = '#fe4450'
 warning = '#ff8b39'
 info = '#61E2FF'
