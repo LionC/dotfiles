@@ -11,7 +11,8 @@ export HOMEBREW_BUNDLE_FIL="$HOME/.config/brew/Brewfile"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="agnoster"
+# ZSH_THEME="agnoster"
+#
 DEFAULT_USER="lionc"
 
 # Set list of themes to pick from when loading at random
@@ -113,3 +114,6 @@ export PATH="/usr/local/bin:/Users/lionc/.deno/bin:/usr/local/sbin:$HOME/.jsvu:$
 source $HOME/.cargo/env
 
 bindkey -v
+
+# Prompt (starship)
+eval "$(starship init zsh)"
