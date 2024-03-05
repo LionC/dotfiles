@@ -103,6 +103,8 @@ source "$DOT_CONFIGS/zsh/aliases.sh"
 # FNM Node Management
 eval "$(fnm env)"
 
+# OCaml
+eval "$(opam env)"
 export PATH="/usr/local/bin:/Users/lionc/.deno/bin:/usr/local/sbin:$HOME/.jsvu:$HOME/go/bin:$PATH"
 source $HOME/.cargo/env
 
