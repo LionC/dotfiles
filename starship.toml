@@ -1,9 +1,17 @@
+# A continuation prompt that displays two filled in arrows
+continuation_prompt = '▶▶ '
+
+# Custom color palette, see bottom of this file
 palette = "fluoromachine"
+
+# MODULES
 
 [git_status]
 style = "bold orange"
+
 [aws]
 disabled = true
+
 [gcloud]
 disabled = true
 
