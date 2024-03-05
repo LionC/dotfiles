@@ -105,6 +105,10 @@ eval "$(fnm env)"
 
 # OCaml
 eval "$(opam env)"
+
+# Atuin
+eval "$(atuin init zsh)"
+
 export PATH="/usr/local/bin:/Users/lionc/.deno/bin:/usr/local/sbin:$HOME/.jsvu:$HOME/go/bin:$PATH"
 source $HOME/.cargo/env
 
