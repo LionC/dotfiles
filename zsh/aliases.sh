@@ -1,7 +1,7 @@
 alias nv="nvim"
 alias tf="terraform"
 alias ae="aerospace"
-alias ls="exa --icons"
+alias ls="eza --icons --git"
 
 # tmux
 alias txl="tmuxp load ."
