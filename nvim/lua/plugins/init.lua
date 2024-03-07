@@ -68,6 +68,11 @@ require 'lazy'.setup {
     { 'lewis6991/gitsigns.nvim', config = require 'plugins.config.gitsigns'  },
     { 'williamboman/mason.nvim', config = require 'plugins.config.mason' },
     -- editing
+    { 'jiaoshijie/undotree', dependencies = 'nvim-lua/plenary.nvim', opts = {
+        window = {
+            winblend = 0,
+        },
+    }},
     { 'RRethy/nvim-treesitter-textsubjects', after = 'nvim-treesitter' },
     { 'hrsh7th/nvim-cmp', config = require 'plugins.config.cmp', dependencies = {
         'hrsh7th/cmp-nvim-lsp',
