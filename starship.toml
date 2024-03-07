@@ -4,34 +4,153 @@ continuation_prompt = '▶▶ '
 # Custom color palette, see bottom of this file
 palette = "fluoromachine"
 
+# Which is equivalent to
+format = """
+[](cyan)\
+$username\
+$hostname\
+$shlvl\
+$directory\
+[](bg:purple fg:cyan)\
+$git_branch\
+$git_commit\
+[](bg:pink fg:purple)\
+$git_state\
+$git_status\
+[](fg:pink)\
+ $sudo\
+$cmd_duration\
+  $fill  \
+$docker_context\
+$package\
+$c\
+$cmake\
+$cobol\
+$daml\
+$kubernetes\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$fennel\
+$golang\
+$guix_shell\
+$haskell\
+$haxe\
+$helm\
+$java\
+$julia\
+$kotlin\
+$gradle\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$opa\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$raku\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$solidity\
+$swift\
+$terraform\
+$typst\
+$vlang\
+$vagrant\
+$zig\
+$buf\
+$nix_shell\
+$conda\
+$meson\
+$spack\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$direnv\
+$env_var\
+$crystal\
+$custom\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$os\
+$container\
+$shell\
+$character
+"""
+
 # MODULES
 
-[cmd_duration]
-min_time = 500
+[username]
+style_user = "bg:cyan fg:black"
+style_root = "bg:cyan fg:black"
+format = "[$user in]($style)"
+
+[hostname]
+style = "bg:cyan fg:black"
+format = "[$ssh_symbol$hostname]($style)"
+
+[shlvl]
+style = "bg:cyan fg:black"
 
 [directory]
-style = "pink"
+style = "bg:cyan fg:black"
+format = "[ $path ]($style)"
 
-# [git_metrics]
-# disabled = false
+[git_state]
+format = "([ $state( $progress_current/$progress_total) ]($style)) "
 
 [git_status]
-style = "bold orange"
-format = "([$all_status$ahead_behind]($style) )"
+style = "bg:pink fg:black"
+format = "([ $all_status$ahead_behind ]($style))"
+
+[git_branch]
+style = "bg:purple"
+format = '[ $symbol$branch ]($style)'
+
+[cmd_duration]
+style = "orange"
+format = " [⎯ ](comment) [$duration]($style) "
+min_time = 500
+show_milliseconds = true
+
+[fill]
+symbol = "⎯"
+style = "fg:comment"
 
 [aws]
+disabled = true
+
+[docker_context]
 disabled = true
 
 [gcloud]
 disabled = true
 
+[nodejs]
+symbol= ""
+version_format = "v${major}"
+
 [palettes.fluoromachine]
 fg = '#8BA7A7'
+cursor_bg = '#8BA7A7'
 bg = '#262335'
 alt_bg = '#241b2f'
-currentline = '#463465'
 selection = '#463465'
 comment = '#495495'
+
 cyan = '#61E2FF'
 green = '#72f1b8'
 orange = '#ff8b39'
@@ -39,15 +158,3 @@ pink = '#FC199A'
 purple = '#AF6DF9'
 red = '#fe4450'
 yellow = '#FFCC00'
-cursor_fg = '#282a36'
-cursor_bg = '#8BA7A7'
-sign_add = '#72f1b8'
-sign_change = '#ff8b39'
-error = '#fe4450'
-warning = '#ff8b39'
-info = '#61E2FF'
-hint = '#61E2FF'
-other = '#AF6DF9'
-blankline = '#57367C'
-active_blankline = '#7E0C4D'
-inlay_hint = '#8C57C7'
