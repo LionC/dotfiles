@@ -109,16 +109,17 @@ style = "bg:cyan fg:black"
 style = "bg:cyan fg:black"
 format = "[ $path ]($style)"
 
+[git_branch]
+style = "bg:purple fg:black"
+format = '[ $symbol$branch ]($style)'
+
 [git_state]
+style = "bg:pink fg:black"
 format = "([ $state( $progress_current/$progress_total) ]($style)) "
 
 [git_status]
 style = "bg:pink fg:black"
 format = "([ $all_status$ahead_behind ]($style))"
-
-[git_branch]
-style = "bg:purple"
-format = '[ $symbol$branch ]($style)'
 
 [cmd_duration]
 style = "orange"
@@ -154,7 +155,8 @@ comment = '#495495'
 cyan = '#61E2FF'
 green = '#72f1b8'
 orange = '#ff8b39'
-pink = '#FC199A'
+pink = '#e72c91'
+# pink = '#FC199A'
 purple = '#AF6DF9'
 red = '#fe4450'
 yellow = '#FFCC00'
