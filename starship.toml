@@ -6,15 +6,15 @@ palette = "fluoromachine"
 
 # Which is equivalent to
 format = """
-[](cyan)\
+[](purple)\
 $username\
 $hostname\
 $shlvl\
 $directory\
-[](bg:purple fg:cyan)\
+[](bg:cyan fg:purple)\
 $git_branch\
 $git_commit\
-[](bg:pink fg:purple)\
+[](bg:pink fg:cyan)\
 $git_state\
 $git_status\
 [](fg:pink)\
@@ -94,23 +94,23 @@ $character
 # MODULES
 
 [username]
-style_user = "bg:cyan fg:black"
-style_root = "bg:cyan fg:black"
+style_user = "bg:purple fg:black"
+style_root = "bg:purple fg:black"
 format = "[$user in]($style)"
 
 [hostname]
-style = "bg:cyan fg:black"
+style = "bg:purple fg:black"
 format = "[$ssh_symbol$hostname]($style)"
 
 [shlvl]
-style = "bg:cyan fg:black"
+style = "bg:purple fg:black"
 
 [directory]
-style = "bg:cyan fg:black"
+style = "bg:purple fg:black"
 format = "[ $path ]($style)"
 
 [git_branch]
-style = "bg:purple fg:black"
+style = "bg:cyan fg:black"
 format = '[ $symbol$branch ]($style)'
 
 [git_state]
