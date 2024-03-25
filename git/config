@@ -2,6 +2,8 @@
     difftool = true
 [merge]
     conflictstyle = zdiff3
+[status]
+    short = true
 [branch]
     sort = -committerdate
 [diff]
