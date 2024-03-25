@@ -19,8 +19,8 @@ $git_state\
 $git_status\
 [](fg:pink)\
  $sudo\
-$cmd_duration\
-  $fill  \
+$cmd_duration \
+$fill  \
 $docker_context\
 $package\
 $c\
@@ -122,13 +122,13 @@ style = "bg:pink fg:black"
 format = "([ $all_status$ahead_behind ]($style))"
 
 [cmd_duration]
-style = "orange"
-format = " [⎯ ](comment) [$duration]($style) "
+style = "yellow"
+format = " [──](comment) [$duration]($style)"
 min_time = 500
 show_milliseconds = true
 
 [fill]
-symbol = "⎯"
+symbol = "─"
 style = "fg:comment"
 
 [aws]
@@ -141,7 +141,7 @@ disabled = true
 disabled = true
 
 [nodejs]
-symbol= ""
+symbol= " "
 version_format = "v${major}"
 
 [palettes.fluoromachine]
