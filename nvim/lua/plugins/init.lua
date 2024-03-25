@@ -33,7 +33,6 @@ require 'lazy'.setup {
         "nvim-tree/nvim-web-devicons",
         'lewis6991/gitsigns.nvim'
     }},
-    -- { 'rcarriga/nvim-notify', config = require 'plugins.config.notify'  },
     { 'j-hui/fidget.nvim', opts = {
         progress = {
             display = {

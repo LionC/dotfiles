@@ -17,14 +17,10 @@ return function()
 
             },
             shortcut = {
-                {
-                    desc = ' Files',
-                    group = 'Label',
-                    action = 'Telescope find_files',
-                    key = 'f',
-                },
+                { icon = ' ', '@variable', desc = 'Files', group = 'Warning', action = 'Telescope find_files', key = 'f', },
+                --{ desc = '󰊳 Update', group = 'Warning', action = 'Lazy update', key = 'u' },
             },
-            packages = { enable = false },
+            packages = { enable = true },
             project = { enable = false },
             footer = {
                 '',
