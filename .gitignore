@@ -16,6 +16,7 @@
 /beets/library.db
 /broot/
 /raycast/
+/wow/
 
 *.log
 log
