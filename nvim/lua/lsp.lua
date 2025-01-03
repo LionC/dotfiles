@@ -1,27 +1,18 @@
 local nvim_lsp = require 'lspconfig'
 local lspUtil = require 'lspconfig.util'
-local lspPath = lspUtil.path
 local nest = require 'nest'
-local cmpLsp = require 'cmp_nvim_lsp'
 
-vim.diagnostic.config {
-    float = { border = "rounded" },
-}
+vim.diagnostic.config { float = { border = "rounded" } }
 
 vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
 vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
 
-local capabilities = cmpLsp.default_capabilities()
+local on_attach = function(client)
+    -- Add borderds to floating LSP windows
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Add borderds to floating LSP windows
-  vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-  vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
-
-  vim.cmd [[
+    vim.cmd [[
       command! LspDef               lua vim.lsp.buf.definition()
       command! LspCodeAction        lua vim.lsp.buf.code_action()
       command! LspHover             lua vim.lsp.buf.hover()
@@ -35,160 +26,111 @@ local on_attach = function(client, bufnr)
       command! LspSignatureHelp     lua vim.lsp.buf.signature_help()
   ]]
 
-  local lsp = vim.lsp.buf
-  local diag = vim.diagnostic
+    local lsp = vim.lsp.buf
 
-  nest.applyKeymaps {
-      buffer = true,
+    nest.applyKeymaps {
+        buffer = true,
 
-      { 'g', {
-          { 'd', lsp.definition },
-          { 'y', lsp.type_definition },
-          { 'i', lsp.implementation },
-          { 'r', lsp.references },
-          { 'D', lsp.declaration },
-      }},
+        { 'g', {
+            { 'd', lsp.definition },
+            { 'y', lsp.type_definition },
+            { 'i', lsp.implementation },
+            { 'r', lsp.references },
+            { 'D', lsp.declaration },
+        } },
+    }
 
-      { 'K', lsp.hover },
-      { ']d', diag.goto_next },
-      { '[d', diag.goto_prev },
-  }
-
-  if client.server_capabilities["documentFormattingProvider"] then
-    vim.cmd [[
+    if client.server_capabilities["documentFormattingProvider"] then
+        vim.cmd [[
         autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
     ]]
-  end
+    end
 end
 
-local function hasPackageJson(path)
-    local checkPath = lspPath.join(path, 'package.json')
-    local exists = lspPath.exists(checkPath)
+-- Servers to always install on setup (includes servers with non-default settings)
+local servers = {
+    'gopls',
+    'rust_analyzer',
+    'ocamllsp',
+    'terraformls',
+    'graphql',
+    { 'lua_ls', {
+        settings = {
+            Lua = {
+                runtime = {
+                    -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                    version = 'LuaJIT',
+                },
+                diagnostics = {
+                    -- Get the language server to recognize the `vim` global
+                    globals = { 'vim' },
+                },
+                workspace = {
+                    -- Make the server aware of Neovim runtime files
+                    library = vim.api.nvim_get_runtime_file("", true),
+                },
+                -- Do not send telemetry data containing a randomized but unique identifier
+                telemetry = {
+                    enable = false,
+                },
+            },
+        }
+    } }
+}
 
-    return exists
+-- Setup servers from list above
+for _, v in ipairs(servers) do
+    if type(v) == "table" then
+        nvim_lsp[v[1]].setup(v[2])
+    else
+        nvim_lsp[v].setup {
+            on_attach = on_attach
+        }
+    end
 end
 
-local function hasDenoConfig(path)
-    local jsonPath = lspPath.join(path, 'deno.json')
-    local jsonExists = lspPath.exists(jsonPath)
-
-    local jsoncPath = lspPath.join(path, 'deno.jsonc')
-    local jsoncExists = lspPath.exists(jsoncPath)
-
-    return jsonExists or jsoncExists
-end
+-- -------------------------------------------------------------------------------
+-- Auotomatically distinguish between Deno TS and Node TS and setup accordingly --
+-- -------------------------------------------------------------------------------
 
 local cwd = vim.fn.getcwd()
-local denoConfigFound = hasDenoConfig(cwd) or lspPath.traverse_parents(cwd, hasDenoConfig)
-local packageJsonFound = hasPackageJson(cwd) or lspPath.traverse_parents(cwd, hasPackageJson)
+local denoConfigFound = vim.fs.root(cwd, { 'deno.json', 'deno.jsonc' }) ~= nil
+local packageJsonFound = vim.fs.root(cwd, { 'package.json' }) ~= nil
 
 if (not denoConfigFound) and packageJsonFound then
-    -- Typescript
-    require 'typescript'.setup {
-        server = { -- pass options to lspconfig's setup method
-            -- Speed up tsserver by requiring the root directory to be a git repo
-            root_dir = lspUtil.root_pattern(".git"),
-            capabilities = capabilities,
-            on_attach = function(client, bufnr)
-                client.server_capabilities["documentFormattingProvider"] = false
-                client.server_capabilities["documentRangeFormattingProvider"] = false
+    -- Typescript LS
+    nvim_lsp.ts_ls.setup {
+        root_dir = lspUtil.root_pattern(".git"),
+        on_attach = function(client)
+            client.server_capabilities["documentFormattingProvider"] = false
+            client.server_capabilities["documentRangeFormattingProvider"] = false
 
-                local ts_utils = require 'nvim-lsp-ts-utils'
-                ts_utils.setup {}
-                ts_utils.setup_client(client)
-
-                nest.applyKeymaps {
-                    buffer = true,
-
-                    { '<leader>t', {
-                        { 'o', '<cmd>TSLspOrganize<CR>' },
-                        { 'r', '<cmd>TSLspRenameFile<CR>' },
-                        { 'i', '<cmd>TSLspImportAll<CR>' },
-                    }},
-                }
-
-                on_attach(client, bufnr)
-            end,
+            on_attach(client)
+        end,
+        init_options = {
+            enable = true,
+            lint = true,
         },
     }
 
-    -- Linting & Formatting
+    -- ESLint Linting & Prettier Formatting via null LS
     local null = require 'null-ls'
     local builtins = null.builtins
 
     null.setup {
         sources = {
-           builtins.formatting.prettier,
-           builtins.diagnostics.eslint,
-           require 'typescript.extensions.null-ls.code-actions',
+            builtins.formatting.prettier,
+            builtins.diagnostics.eslint,
         },
-        capabilities = capabilities,
         on_attach = on_attach,
     }
 else
-    -- Deno
+    -- Deno LS
     nvim_lsp.denols.setup {
         on_attach = on_attach,
-        capabilities = capabilities,
         init_options = {
             enable = true,
             lint = true,
         },
     }
 end
-
--- Go
-nvim_lsp.gopls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-}
-
--- Rust
-nvim_lsp.rust_analyzer.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-}
-
--- OCaml
-nvim_lsp.ocamllsp.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-}
-
--- Terraform
-nvim_lsp.terraformls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-}
-
--- GraphQL
-nvim_lsp.graphql.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-}
-
--- Lua with Nvim
-nvim_lsp.lua_ls.setup {
-    capabilities = capabilities,
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = {'vim'},
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
-}
-
