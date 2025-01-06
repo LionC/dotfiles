@@ -110,7 +110,7 @@ eval "$(opam env)"
 # Atuin
 eval "$(atuin init zsh)"
 
-export PATH="/usr/local/bin:/Users/lionc/.deno/bin:/usr/local/sbin:$HOME/.jsvu:$HOME/go/bin:$PATH"
+export PATH="/usr/local/bin:/Users/lionc/.deno/bin:/usr/local/sbin:$HOME/.jsvu:$HOME/go/bin:$PATH:$HOME/.config/zsh/scripts"
 source $HOME/.cargo/env
 
 bindkey -v
