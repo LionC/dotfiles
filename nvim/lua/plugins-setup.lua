@@ -19,16 +19,5 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require 'lazy'.setup {
-  spec = {
-    -- Lazy itself, is this still needed to update it?
-    'LazyVim/LazyVim',
-
-    -- Dependency, currently unsure which plugins depend on it
-    'nvim-lua/popup.nvim',
-
-    -- Import all specs from `plugins` folder
-    { import = 'plugins' },
-  },
-}
+require 'lazy'.setup 'plugins'
 
