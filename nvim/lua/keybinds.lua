@@ -1,9 +1,10 @@
 local nest = require 'nest'
 local undotree = require 'undotree'
+local arena = require 'arena'
+local todos = require 'todo-comments'
+local quicker = require 'quicker'
 
 local lsp = vim.lsp.buf
-
-vim.g.mapleader = ' '
 
 nest.applyKeymaps {
     -- Pragmatic command mode
@@ -22,10 +23,12 @@ nest.applyKeymaps {
     { '[', {
         { 'q', '<Cmd>cp<CR>' },
         { 'h', '<Cmd>Gitsigns prev_hunk<CR>' },
+        { 't', todos.jump_next },
     }},
     { ']', {
         { 'q', '<Cmd>cn<CR>' },
         { 'h', '<Cmd>Gitsigns next_hunk<CR>' },
+        { 't', todos.jump_prev },
     }},
 
     -- Buffer navigation
@@ -53,6 +56,12 @@ nest.applyKeymaps {
     }},
 
     { '<leader>', {
+        -- Toggle Quickfix
+        { 'q', quicker.toggle },
+        -- Open Todos in Quickfix
+        { 't', '<Cmd>TodoQuickFix<CR>'},
+        -- Arena Buffers
+        { 'b', arena.toggle },
         -- LSP
         { 'l', {
             { 'd', vim.diagnostic.open_float },
@@ -68,6 +77,7 @@ nest.applyKeymaps {
             { 'o', '<Cmd>Telescope oldfiles<CR>' },
             { 'j', '<Cmd>Telescope jumplist<CR>' },
             { 'p', '<Cmd>Telescope builtin<CR>' },
+            { 't', '<Cmd>TodoTelescope<CR>'},
         }},
         -- Neotree
         { 'n', {

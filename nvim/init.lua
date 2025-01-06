@@ -1,6 +1,6 @@
-require('core.options')
-require('plugins')
-require('lsp')
-require('keybinds')
-require('theme')
+require 'core.options'
+require 'plugins-setup'
+require 'lsp'
+require 'keybinds'
+require 'theme'
 

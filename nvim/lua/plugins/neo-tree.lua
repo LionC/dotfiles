@@ -1,5 +1,11 @@
-return function()
-    require 'neo-tree'.setup {
+return { 'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons",
+        "MunifTanjim/nui.nvim",
+    },
+    opts = {
         window = {
             mappings = {
                 ["<space>"] = { "toggle_node", nowait = true },
@@ -12,5 +18,6 @@ return function()
             },
             use_libuv_file_watcher = true,
         },
-    }
-end
+        sources = { 'filesystem', 'git_status', 'document_symbols' },
+    },
+}

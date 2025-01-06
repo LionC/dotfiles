@@ -1,5 +1,7 @@
 local homeFolder = vim.env.HOME
 
+vim.g.mapleader = ' '
+
 local options = {
     autoread = true,
     backup = false,

@@ -1,16 +1,19 @@
 local nvim_lsp = require 'lspconfig'
 local lspUtil = require 'lspconfig.util'
 local nest = require 'nest'
+local gotopreview = require 'goto-preview'
 
-vim.diagnostic.config { float = { border = "rounded" } }
+vim.diagnostic.config { float = { border = 'rounded' } }
 
 vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
 vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
 
+local capabilities = require 'blink.cmp'.get_lsp_capabilities()
+
 local on_attach = function(client)
     -- Add borderds to floating LSP windows
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+    vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
+    vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
 
     vim.cmd [[
       command! LspDef               lua vim.lsp.buf.definition()
@@ -37,10 +40,18 @@ local on_attach = function(client)
             { 'i', lsp.implementation },
             { 'r', lsp.references },
             { 'D', lsp.declaration },
+            { 'p', {
+                { 'q', gotopreview.close_all_win },
+                { 'd', gotopreview.goto_preview_definition },
+                { 'y', gotopreview.goto_preview_type_definition },
+                { 'i', gotopreview.goto_preview_implementation },
+                { 'r', gotopreview.goto_preview_references },
+                { 'D', gotopreview.goto_preview_declaration },
+            }},
         } },
     }
 
-    if client.server_capabilities["documentFormattingProvider"] then
+    if client.server_capabilities['documentFormattingProvider'] then
         vim.cmd [[
         autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
     ]]
@@ -67,7 +78,7 @@ local servers = {
                 },
                 workspace = {
                     -- Make the server aware of Neovim runtime files
-                    library = vim.api.nvim_get_runtime_file("", true),
+                    library = vim.api.nvim_get_runtime_file('', true),
                 },
                 -- Do not send telemetry data containing a randomized but unique identifier
                 telemetry = {
@@ -80,11 +91,12 @@ local servers = {
 
 -- Setup servers from list above
 for _, v in ipairs(servers) do
-    if type(v) == "table" then
+    if type(v) == 'table' then
         nvim_lsp[v[1]].setup(v[2])
     else
         nvim_lsp[v].setup {
-            on_attach = on_attach
+            on_attach = on_attach,
+            capabilities = capabilities,
         }
     end
 end
@@ -100,13 +112,14 @@ local packageJsonFound = vim.fs.root(cwd, { 'package.json' }) ~= nil
 if (not denoConfigFound) and packageJsonFound then
     -- Typescript LS
     nvim_lsp.ts_ls.setup {
-        root_dir = lspUtil.root_pattern(".git"),
+        root_dir = lspUtil.root_pattern('.git'),
         on_attach = function(client)
-            client.server_capabilities["documentFormattingProvider"] = false
-            client.server_capabilities["documentRangeFormattingProvider"] = false
+            client.server_capabilities['documentFormattingProvider'] = false
+            client.server_capabilities['documentRangeFormattingProvider'] = false
 
             on_attach(client)
         end,
+        capabilities = capabilities,
         init_options = {
             enable = true,
             lint = true,
@@ -123,11 +136,13 @@ if (not denoConfigFound) and packageJsonFound then
             builtins.diagnostics.eslint,
         },
         on_attach = on_attach,
+        capabilities = capabilities,
     }
 else
     -- Deno LS
     nvim_lsp.denols.setup {
         on_attach = on_attach,
+        capabilities = capabilities,
         init_options = {
             enable = true,
             lint = true,

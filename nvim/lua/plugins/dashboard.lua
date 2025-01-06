@@ -1,9 +1,11 @@
-return function()
-    local dashboard = require 'dashboard'
-
-    dashboard.setup {
+return { 'glepnir/dashboard-nvim',
+    dependencies = {
+        "nvim-tree/nvim-web-devicons",
+        'lewis6991/gitsigns.nvim'
+    },
+    opts = {
         config = {
-            header ={
+            header = {
                 '                                          /$$              ',
                 '                                         |__/              ',
                 ' /$$$$$$$   /$$$$$$   /$$$$$$  /$$    /$$ /$$ /$$$$$$/$$$$ ',
@@ -27,5 +29,5 @@ return function()
                 'NVIM v' .. vim.version().major .. '.' .. vim.version().minor .. '.' .. vim.version().patch
             }
         }
-    }
-end
+    },
+}
