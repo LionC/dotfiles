@@ -1,3 +1,0 @@
-[submodule "tmux/tmux-themepack"]
-	path = tmux/tmux-themepack
-	url = https://github.com/jimeh/tmux-themepack.git
