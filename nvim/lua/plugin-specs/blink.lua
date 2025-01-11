@@ -23,7 +23,7 @@ return {
                 },
             },
 
-            ghost_text = { enabled = true },
+            -- ghost_text = { enabled = true },
 
             menu = {
                 auto_show = function(ctx)
@@ -34,7 +34,7 @@ return {
                     return false
                 end,
                 border = 'rounded',
-                winhighlight = "Normal:Normal,FloatBorder:None,CursorLine:BlinkCmpDocCursorLine,Search:None",
+                winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
                 scrollbar = false,
                 draw = {
                     columns = {
@@ -62,6 +62,12 @@ return {
             }
         },
 
-        signature = { enabled = true }
+        signature = {
+            enabled = true,
+            window = {
+                border = 'rounded',
+                winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
+            },
+        }
     }
 }
