@@ -1,5 +1,3 @@
-source-file $HOME/.config/tmux/tmux-themepack/powerline/block/purple.tmuxtheme
-
 set     -g  visual-activity                 off
 set     -g  visual-bell                     off
 set     -g  visual-silence                  off

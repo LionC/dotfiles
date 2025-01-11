@@ -18,5 +18,7 @@
 /raycast/
 /wow/
 
+/tmux/plugins
+
 *.log
 log
