@@ -19,5 +19,16 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require 'lazy'.setup 'plugins'
+require 'lazy'.setup {
+    spec = 'plugins',
+    dev = {
+        path = "~/projects/private/nv-plugins",
+    },
+    ui = {
+        border = 'rounded',
+    },
+    change_detection = {
+        enabled = false,
+    },
+}
 

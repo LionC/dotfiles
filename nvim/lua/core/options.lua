@@ -36,8 +36,7 @@ for name, value in pairs(options) do
     vim.opt[name] = value
 end
 
-vim.opt.shortmess:append({ c = true })
-vim.cmd('filetype on')
+vim.opt.shortmess:append { c = true }
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1

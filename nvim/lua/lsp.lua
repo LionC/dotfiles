@@ -5,16 +5,17 @@ local gotopreview = require 'goto-preview'
 
 vim.diagnostic.config { float = { border = 'rounded' } }
 
-vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
-vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
-
 local capabilities = require 'blink.cmp'.get_lsp_capabilities()
 
-local on_attach = function(client)
-    -- Add borderds to floating LSP windows
-    vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
-    vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
+-- Add borderds to floating LSP windows
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+vim.lsp.util.open_floating_preview = function (contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or 'rounded'
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
 
+local on_attach = function(client)
     vim.cmd [[
       command! LspDef               lua vim.lsp.buf.definition()
       command! LspCodeAction        lua vim.lsp.buf.code_action()
@@ -47,14 +48,13 @@ local on_attach = function(client)
                 { 'i', gotopreview.goto_preview_implementation },
                 { 'r', gotopreview.goto_preview_references },
                 { 'D', gotopreview.goto_preview_declaration },
-            }},
+            } },
         } },
     }
 
     if client.server_capabilities['documentFormattingProvider'] then
-        vim.cmd [[
-        autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
-    ]]
+        vim.print(client.server_capabilities)
+        vim.cmd [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.format() ]]
     end
 end
 

@@ -4,11 +4,15 @@ return {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
+        appearance = {
+            use_nvim_cmp_as_default = true,
+        },
         completion = {
             list = {
-                selection = function(ctx)
-                    return ctx.mode == "cmdline" and "auto_insert" or "preselect"
-                end,
+                selection = {
+                    auto_insert = false,
+                    preselect = true,
+                },
             },
             documentation = {
                 auto_show = true,

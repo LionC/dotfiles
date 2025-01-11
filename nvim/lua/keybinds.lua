@@ -6,6 +6,10 @@ local quicker = require 'quicker'
 
 local lsp = vim.lsp.buf
 
+local function cmd(command)
+    return '<Cmd>' .. command .. '<CR>'
+end
+
 nest.applyKeymaps {
     -- Pragmatic command mode
     { mode = 'vn', {
@@ -21,13 +25,13 @@ nest.applyKeymaps {
     }},
 
     { '[', {
-        { 'q', '<Cmd>cp<CR>' },
-        { 'h', '<Cmd>Gitsigns prev_hunk<CR>' },
+        { 'q', cmd'cp' },
+        { 'h', cmd'Gitsigns prev_hunk' },
         { 't', todos.jump_next },
     }},
     { ']', {
-        { 'q', '<Cmd>cn<CR>' },
-        { 'h', '<Cmd>Gitsigns next_hunk<CR>' },
+        { 'q', cmd'cn' },
+        { 'h', cmd'Gitsigns next_hunk' },
         { 't', todos.jump_prev },
     }},
 
@@ -36,10 +40,10 @@ nest.applyKeymaps {
     { 'gb',     '<C-o>' },
 
     -- Searching
-    { '<Esc>',  '<Cmd>nohl<CR>' },
+    { 'Esc>',  cmd'nohl' },
 
     -- Files float
-    { '\\', '<Cmd>:Neotree toggle=true source=filesystem position=float reveal=true reveal_force_cwd=true<CR>' },
+    { '\\', cmd'Neotree toggle=true source=filesystem position=float reveal=true reveal_force_cwd=true' },
 
     -- Control mappings
     { '<C-', {
@@ -49,17 +53,19 @@ nest.applyKeymaps {
         { 'L>', '<C-W>l' },
         { 'H>', '<C-W>h' },
         -- Fast access Telescope
-        { 'p>', '<Cmd>Telescope find_files<CR>' },
-        { 'f>', '<Cmd>Telescope live_grep<CR>' },
+        { 'p>', cmd'Telescope find_files' },
+        { 'f>', cmd'Telescope live_grep' },
         -- File Tree
-        { 'n>', '<Cmd>:Neotree toggle=true source=filesystem position=left reveal=true reveal_force_cwd=true<CR>' },
+        { 'n>', cmd'Neotree toggle=true source=filesystem position=left reveal=true reveal_force_cwd=true' },
     }},
 
     { '<leader>', {
         -- Toggle Quickfix
         { 'q', quicker.toggle },
         -- Open Todos in Quickfix
-        { 't', '<Cmd>TodoQuickFix<CR>'},
+        { 't', cmd'TodoQuickFix'},
+        -- Go to Dashboard
+        { 'd', cmd'Dashboard'},
         -- Arena Buffers
         { 'b', arena.toggle },
         -- LSP
@@ -72,18 +78,19 @@ nest.applyKeymaps {
         }},
         -- Telescope
         { 'f', {
-            { 'r', '<Cmd>Telescope resume<CR>' },
-            { 's', '<Cmd>Telescope lsp_document_symbols<CR>' },
-            { 'o', '<Cmd>Telescope oldfiles<CR>' },
-            { 'j', '<Cmd>Telescope jumplist<CR>' },
-            { 'p', '<Cmd>Telescope builtin<CR>' },
-            { 't', '<Cmd>TodoTelescope<CR>'},
+            { 'r', cmd'Telescope resume' },
+            { 's', cmd'Telescope lsp_document_symbols' },
+            { 'o', cmd'Telescope oldfiles' },
+            { 'j', cmd'Telescope jumplist' },
+            { 'p', cmd'Telescope builtin' },
+            { 't', cmd'TodoTelescope'},
         }},
         -- Neotree
         { 'n', {
-            { 'f', '<Cmd>:Neotree toggle=true source=filesystem position=float reveal=true reveal_force_cwd=true<CR>' },
-            { 'g', '<Cmd>:Neotree toggle=true source=git_status position=float reveal=true reveal_force_cwd=true<CR>' },
-            { 'b', '<Cmd>:Neotree toggle=true source=buffers position=float reveal=true reveal_force_cwd=true<CR>' },
+            { 'f', cmd'Neotree toggle=true source=filesystem position=float reveal=true reveal_force_cwd=true' },
+            { 'g', cmd'Neotree toggle=true source=git_status position=float reveal=true reveal_force_cwd=true' },
+            { 'b', cmd'Neotree toggle=true source=buffers position=float reveal=true reveal_force_cwd=true' },
+            { 's', cmd'Neotree toggle=true source=document_symbols position=left reveal=true' },
         }},
         -- Undotree
         { 'u', undotree.toggle },
