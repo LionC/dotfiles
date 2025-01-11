@@ -20,7 +20,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require 'lazy'.setup {
-    spec = 'plugins',
+    spec = 'plugin-specs',
     dev = {
         path = "~/projects/private/nv-plugins",
     },
