@@ -6,6 +6,7 @@ return { 'nvim-neo-tree/neo-tree.nvim',
         'nvim-tree/nvim-web-devicons',
         'MunifTanjim/nui.nvim',
     },
+    cmd = 'Neotree',
     config = function()
         require 'neo-tree'.setup {
             popup_border_style = 'rounded',

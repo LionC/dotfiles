@@ -6,7 +6,7 @@ return {
                 ensure_installed = 'all',
                 sync_install = false,
                 auto_install = false,
-                ignore_install = { 'haskell', 'phpdoc' },
+                ignore_install = {},
                 highlight = {
                     enable = true,
                 },

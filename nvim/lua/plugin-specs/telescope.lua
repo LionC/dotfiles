@@ -5,6 +5,7 @@ return {
             "nvim-tree/nvim-web-devicons",
             'nvim-treesitter/nvim-treesitter',
         },
+        event = 'BufEnter',
         config = function()
             local telescope = require 'telescope'
             local themes    = require 'telescope.themes'
@@ -33,22 +34,7 @@ return {
                         additional_args = { '--hidden' },
                     }
                 },
-                -- extensions = {
-                --     ['ui-select'] = {
-                --         layout_strategy = 'center',
-                --         previewer = false,
-                --         initial_mode = 'normal',
-                --     },
-                -- },
             }
         end
     },
-    -- { 'nvim-telescope/telescope-ui-select.nvim',
-    --     dependencies = {
-    --         'nvim-telescope/telescope.nvim'
-    --     },
-    --     config = function()
-    --         require 'telescope'.load_extension 'ui-select'
-    --     end,
-    -- },
 }
