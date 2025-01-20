@@ -17,8 +17,10 @@
 /broot/
 /raycast/
 /wow/
+/github-copilot/
 
 /tmux/plugins
+
 
 *.log
 log
