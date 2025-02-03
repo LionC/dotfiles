@@ -7,68 +7,30 @@ return {
         'rmagatti/goto-preview',
         'saghen/blink.cmp',
         'nvimtools/none-ls.nvim',
+        'jay-babu/mason-null-ls.nvim',
+        'Fildo7525/pretty_hover',
     },
     config = function()
         local nvim_lsp = require 'lspconfig'
         local lspUtil = require 'lspconfig.util'
-        local nest = require 'nest'
-        local gotopreview = require 'goto-preview'
-        local blink = require 'blink.cmp'
 
-        vim.diagnostic.config { float = { border = 'rounded' } }
+        local lsp = require 'lsp'
+        local options = lsp.get_lsp_options {
+            nest = require 'nest',
+            goto_preview = require 'goto-preview',
+            blink = require 'blink.cmp',
+            pretty_hover = require 'pretty_hover',
+        }
+        local on_attach = options.on_attach
+        local capabilities = options.capabilities
 
-        local capabilities = blink.get_lsp_capabilities()
+        -- Setup non-Mason LSPs
+        nvim_lsp.sourcekit.setup {
+            on_attach = on_attach,
+            cpabilities = capabilities,
+        }
 
-        -- Add borderds to floating LSP windows
-        local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-
-        vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
-            opts = opts or {}
-            opts.border = opts.border or 'rounded'
-            return orig_util_open_floating_preview(contents, syntax, opts, ...)
-        end
-
-        local on_attach = function(client)
-            vim.cmd [[
-                command! LspDef               lua vim.lsp.buf.definition()
-                command! LspCodeAction        lua vim.lsp.buf.code_action()
-                command! LspHover             lua vim.lsp.buf.hover()
-                command! LspRename            lua vim.lsp.buf.rename()
-                command! LspRefs              lua vim.lsp.buf.references()
-                command! LspTypeDef           lua vim.lsp.buf.type_definition()
-                command! LspImplementation    lua vim.lsp.buf.implementation()
-                command! LspDiagPrev          lua vim.diagnostic.goto_prev()
-                command! LspDiagNext          lua vim.diagnostic.goto_next()
-                command! LspDiagLine          lua vim.diagnostic.open_float()
-                command! LspSignatureHelp     lua vim.lsp.buf.signature_help()
-            ]]
-
-            local lsp = vim.lsp.buf
-
-            nest.applyKeymaps {
-                buffer = true,
-
-                { 'g', {
-                    { 'd', lsp.definition },
-                    { 'y', lsp.type_definition },
-                    { 'i', lsp.implementation },
-                    { 'r', lsp.references },
-                    { 'D', lsp.declaration },
-                    { 'p', {
-                        { 'q', gotopreview.close_all_win },
-                        { 'd', gotopreview.goto_preview_definition },
-                        { 'y', gotopreview.goto_preview_type_definition },
-                        { 'i', gotopreview.goto_preview_implementation },
-                        { 'r', gotopreview.goto_preview_references },
-                        { 'D', gotopreview.goto_preview_declaration },
-                    } },
-                } },
-            }
-
-            if client.server_capabilities['documentFormattingProvider'] then
-                vim.cmd [[ autocmd BufWritePre <buffer> lua vim.lsp.buf.format() ]]
-            end
-        end
+        --- @type MasonLspconfigSettings
         require 'mason-lspconfig'.setup {
             ensure_installed = {
                 'gopls',
@@ -95,18 +57,14 @@ return {
                         settings = {
                             Lua = {
                                 runtime = {
-                                    -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
                                     version = 'LuaJIT',
                                 },
                                 diagnostics = {
-                                    -- Get the language server to recognize the `vim` global
                                     globals = { 'vim' },
                                 },
                                 workspace = {
-                                    -- Make the server aware of Neovim runtime files
                                     library = vim.api.nvim_get_runtime_file('', true),
                                 },
-                                -- Do not send telemetry data containing a randomized but unique identifier
                                 telemetry = {
                                     enable = false,
                                 },
@@ -127,6 +85,12 @@ return {
                                 lint = true,
                             },
                         }
+
+                        local null = require 'null-ls'
+
+                        null.deregister(null.builtins.formatting.prettier)
+                        null.deregister(require 'none-ls.diagnostics.eslint_d')
+                        null.deregister(require 'none-ls.code_actions.eslint_d')
                     end
                 end,
                 ts_ls = function()
@@ -138,11 +102,11 @@ return {
                         -- Typescript LS
                         nvim_lsp.ts_ls.setup {
                             root_dir = lspUtil.root_pattern('.git'),
-                            on_attach = function(client)
+                            on_attach = function(client, buf)
                                 client.server_capabilities['documentFormattingProvider'] = false
                                 client.server_capabilities['documentRangeFormattingProvider'] = false
 
-                                on_attach(client)
+                                on_attach(client, buf)
                             end,
                             capabilities = capabilities,
                             init_options = {
@@ -151,19 +115,11 @@ return {
                             },
                         }
 
-                        -- ESLint Linting & Prettier Formatting via null LS
                         local null = require 'null-ls'
-                        local builtins = null.builtins
 
-                        null.setup {
-                            sources = {
-                                builtins.formatting.prettier,
-                                require 'none-ls.diagnostics.eslint_d',
-                                require 'none-ls.code_actions.eslint_d',
-                            },
-                            on_attach = on_attach,
-                            capabilities = capabilities,
-                        }
+                        null.register(null.builtins.formatting.prettier)
+                        null.register(require 'none-ls.diagnostics.eslint_d')
+                        null.register(require 'none-ls.code_actions.eslint_d')
                     end
                 end,
             }
