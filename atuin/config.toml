@@ -1,27 +1,3 @@
-## where to store your database, default is your system data directory
-## linux/mac: ~/.local/share/atuin/history.db
-## windows: %USERPROFILE%/.local/share/atuin/history.db
-# db_path = "~/.history.db"
-
-## where to store your encryption key, default is your system data directory
-## linux/mac: ~/.local/share/atuin/key
-## windows: %USERPROFILE%/.local/share/atuin/key
-# key_path = "~/.key"
-
-## where to store your auth session token, default is your system data directory
-## linux/mac: ~/.local/share/atuin/session
-## windows: %USERPROFILE%/.local/share/atuin/session
-# session_path = "~/.session"
-
-## date format used, either "us" or "uk"
-# dialect = "us"
-
-## default timezone to use when displaying time
-## either "l", "local" to use the system's current local timezone, or an offset
-## from UTC in the format of "<+|->H[H][:M[M][:S[S]]]"
-## for example: "+9", "-05", "+03:30", "-01:23:45", etc.
-# timezone = "local"
-
 ## enable or disable automatic sync
 # auto_sync = true
 
