@@ -1,0 +1,20 @@
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+
+# Config syntax crash course
+# ==========================
+# # The config file consists of simple key-value pairs,
+# # separated by equals signs.
+# font-family = Iosevka
+# window-padding-x = 2
+
+font-family = "Hack Nerd Font Mono"
+font-size = 16
+
+background = 444444
+background-opacity = 0.8
+background-blur = true
+
+window-decoration = none
+# macos-titlebar-style = hidden
+
