@@ -24,8 +24,8 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# Theme for ls, tree etc
-export LS_COLORS = $(vivid generate fluoromachine)
+# Theme for ls, eza, tree etc
+export LS_COLORS=$(vivid generate fluoromachine)
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
