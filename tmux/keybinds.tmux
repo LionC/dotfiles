@@ -1,6 +1,7 @@
 unbind x
 unbind r
 unbind s
+unbind p
 
 bind                 -N "New Window"                    |      new-window
 bind                 -N "Split vertical"                \\     split-window -h -c "#{pane_current_path}"
@@ -22,4 +23,8 @@ bind -T copy-mode-vi -N "Exit copy mode with Escape"    Escape send -X cancel
 bind -T copy-mode-vi -N "Start visual copy mode with v" v      send -X begin-selection
 bind -T copy-mode-vi -N "Copy with y in copy mode"      y      send -X copy-selection
 
-
+bind                 -N "Find paths in copy mode"       p      {
+    copy-mode
+    send-keys -X "search-backward" "([^ ]*/)([^/ ]*)"
+    send-keys n
+}
