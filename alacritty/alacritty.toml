@@ -28,3 +28,20 @@ blur = true
 [window.padding]
 x = 7
 y = 7
+
+[colors.primary]
+foreground = '#8ba7a7'
+
+[colors.normal]
+black   = '#241b2f'
+red     = '#fe4450'
+green   = '#72f1b8'
+yellow  = '#ffcc00'
+blue    = '#af6df9'
+magenta = '#fc199a'
+cyan    = '#61e2ff'
+white   = '#8ba7a7'
+
+[colors.selection]
+text       = '#8ba7a7'
+background = '#463465'
