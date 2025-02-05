@@ -24,6 +24,7 @@ decorations = "buttonless"
 opacity = 0.93
 startup_mode = "Maximized"
 blur = true
+option_as_alt = "OnlyRight"
 
 [window.padding]
 x = 7
