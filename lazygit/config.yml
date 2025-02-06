@@ -1,0 +1,68 @@
+---
+gui:
+  sidePanelWidth: 0.3333
+  expandFocusedSidePanel: true
+  expandedSidePanelWeight: 2
+  shortTimeFormat: 14:04
+
+  theme:
+    activeBorderColor:
+      - cyan
+      - bold
+    inactiveBorderColor:
+      - blue
+    searchingActiveBorderColor:
+      - magenta
+      - bold
+    optionsTextColor:
+      - default
+    selectedLineBgColor:
+      - reverse
+    inactiveViewSelectedLineBgColor:
+      - bold
+
+    # The ones with comments are still default:
+
+    # Foreground color of copied commit
+    cherryPickedCommitFgColor:
+      - blue
+
+    # Background color of copied commit
+    cherryPickedCommitBgColor:
+      - cyan
+
+    # Foreground color of marked base commit (for rebase)
+    markedBaseCommitFgColor:
+      - blue
+
+    # Background color of marked base commit (for rebase)
+    markedBaseCommitBgColor:
+      - yellow
+
+    # Color for file with unstaged changes
+    unstagedChangesColor:
+      - red
+
+    # Default text color
+    defaultFgColor:
+      - default
+
+  showBottomLine: false
+  showFileTree: false
+  nerdFontsVersion: "3"
+  showFileIcons: true
+  commitHashLength: 4
+  filterMode: fuzzy
+git:
+  paging:
+    colorArg: always
+    pager: delta --paging=never
+  parseEmoji: true
+
+update:
+  method: never
+
+disableStartupPopups: true
+
+os:
+  editpreset: nvim
