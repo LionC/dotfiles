@@ -94,6 +94,7 @@ nest.applyKeymaps {
             { 'b', cmd 'Neotree toggle=true source=buffers position=float reveal=true reveal_force_cwd=true' },
             { 's', cmd 'Neotree toggle=true source=document_symbols position=left reveal=true' },
         } },
+        { 'v', cmd 'NvimContextVtToggle' },
         -- Undotree
         { 'u', undotree.toggle },
     } },
