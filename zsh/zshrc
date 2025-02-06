@@ -58,6 +58,9 @@ export CARAPACE_MARCH=1
 #zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
 source <(carapace _carapace)
 
+#Brew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 export PATH="/usr/local/bin:/Users/lionc/.deno/bin:/usr/local/sbin:$HOME/.jsvu:$HOME/go/bin:$PATH:$HOME/.config/zsh/scripts"
 
 # Vim keybindings
