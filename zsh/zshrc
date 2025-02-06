@@ -8,6 +8,11 @@ export DISABLE_AUTO_TITLE="true"
 export LC_ALL=en_DE.UTF-8
 export XDG_CONFIG_HOME="$HOME/.config"
 
+# Bat for everything
+# Use `batman` for a cleaner version of this, this might break with some manpages
+export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
