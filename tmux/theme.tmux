@@ -52,12 +52,10 @@ set  -gF  status-style                  "fg=#{@c_fg}"
 set  -g   status-justify                "left"
 set  -ag  status-position               "top"
 
-set  -gF  window-status-style           "fg=default,bg=default,align=centre"
-set  -gF  window-status-current-style   "fg=default,bg=default,align=centre"
+set  -gF  window-status-style           "fg=#{@c_purple},bg=default"
+set  -gF  window-status-current-style   "fg=default,bg=default"
 
-set  -gF  window-status-format          "#{E:@window_pill_ends_style}#{E:@window_body_style}"
-set  -ga  window-status-format          "#I #W"
-set  -gaF window-status-format          "#{E:@window_pill_ends_style}"
+set  -g   window-status-format           " #I #W "
 
 set  -gF  window-status-current-format  "#{E:@current_window_pill_ends_style}#{E:@current_window_body_style}"
 set  -ga  window-status-current-format  "#I #W"
