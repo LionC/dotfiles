@@ -5,8 +5,8 @@ DEFAULT_USER="lionc"
 
 # Uncomment the following line to disable auto-setting terminal title.
 export DISABLE_AUTO_TITLE="true"
-
 export LC_ALL=en_DE.UTF-8
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
