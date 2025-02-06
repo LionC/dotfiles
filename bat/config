@@ -1,0 +1,6 @@
+# Uncomment the following line to disable automatic paging:
+#--paging=never
+
+--tabs 4
+--style changes,snip,header-filename,numbers
+--theme="fluoromachine"
