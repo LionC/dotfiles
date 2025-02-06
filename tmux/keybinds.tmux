@@ -23,6 +23,8 @@ bind -T copy-mode-vi -N "Exit copy mode with Escape"    Escape send -X cancel
 bind -T copy-mode-vi -N "Start visual copy mode with v" v      send -X begin-selection
 bind -T copy-mode-vi -N "Copy with y in copy mode"      y      send -X copy-selection
 
+bind                 -N "Open scratch terminal float"   S      popup -E -w65% -h65% zsh
+bind                 -N "Open scratch terminal float"   g      popup -E -w65% -h65% lazygit
 bind                 -N "Find paths in copy mode"       p      {
     copy-mode
     send-keys -X "search-backward" "([^ ]*/)([^/ ]*)"
