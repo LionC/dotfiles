@@ -13,6 +13,9 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
+# Make starship play nice by XDG standards
+export STARSHIP_CONFIG=$XDG_CONFIG_HOME/starship/starship.toml
+
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
