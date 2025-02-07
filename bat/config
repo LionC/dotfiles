@@ -2,5 +2,5 @@
 #--paging=never
 
 --tabs 4
---style changes,snip,header-filename,numbers
+--style "changes,snip,header-filename,numbers"
 --theme="fluoromachine"
