@@ -19,5 +19,5 @@ alias tu="NODE_NO_WARNINGS=1 pnpm turbo run --summarize --concurrency 20"
 alias brewdump="brew bundle dump --file=$HOME/.config/brew/Brewfile --force"
 
 help() {
-    "$@" --help 2>&1 | bathelp
+    "$@" --help 2>&1 | bat --plain --language=help
 }
