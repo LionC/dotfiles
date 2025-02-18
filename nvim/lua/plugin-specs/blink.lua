@@ -52,14 +52,16 @@ return {
             ['<S-Tab>'] = { 'select_prev', 'fallback' },
             ['<Up>'] = { 'select_prev', 'fallback' },
             -- ['<Esc>'] = { 'cancel', 'fallback' },
+        },
 
-            cmdline = {
+        cmdline = {
+            keymap = {
                 ['<Tab>'] = { 'show', 'select_next', 'fallback' },
                 ['<CR>'] = { 'accept', 'fallback' },
                 ['<Down>'] = { 'select_next', 'fallback' },
                 ['<S-Tab>'] = { 'select_prev', 'fallback' },
                 ['<Up>'] = { 'select_prev', 'fallback' },
-            }
+            },
         },
 
         signature = {
