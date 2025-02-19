@@ -15,8 +15,6 @@ nest.applyKeymaps {
     { mode = 'vn', {
         { ';', ':',          options = { silent = false } },
         { ':', ';' },
-        { 'H', '^' },
-        { 'L', '$' },
         { '0', '^' },
         { '^', '0' },
         { 'S', 's<CR><Esc>^' },
